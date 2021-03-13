@@ -11,6 +11,7 @@ import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 from yt import youtube_search
+from yt import export_playlist
 
 app = Flask(__name__)
 
@@ -46,4 +47,9 @@ def edit_playlist():
     pp.pprint(playlist)
     return jsonify(data=playlist)
 
-#@app.route('/remove_from_playlist', methods=['GET', 'POST'])
+@app.route('/export_playlist', methods=['GET'])
+def export_pl():
+    title = 'Onhwa Cafe'
+    description = 'Onhwa Cafe Playlist'
+    export_playlist(title, description, playlist)
+    return jsonify(data='OK')

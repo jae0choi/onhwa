@@ -3,21 +3,25 @@ import traceback
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 
 DEVELOPER_KEY ='AIzaSyC1LLUmK0oAoglnUwPEd9q3a64OU3kRbGY'
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
+#CLIENT_SECRET_FILE = 'client_secret_145017187676-66316e2nllhgl90olvf4h94eao38g9nl.apps.googleusercontent.com.json'
+CLIENT_SECRET_FILE = 'client_secret_145017187676-h9rdc5e1qfh8k7phdrqc5ip66bdf13da.apps.googleusercontent.com.json'
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
 import pprint
 pp=pprint.PrettyPrinter(indent=4)
 
+
 def youtube_search(query):
     videos = []
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
     try:
-        youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
-
         resp = youtube.search().list(
                                      q=query,
                                      part='id,snippet',
@@ -32,8 +36,46 @@ def youtube_search(query):
                 feed = {'id': result['id']['videoId'], 'title': result['snippet']['title']}
                 videos.append(feed)
 
-    except Exception, e:
+    except Exception:
         traceback.print_exc()
 
     return videos
 
+def export_playlist(title, description, playlist):
+    flow = InstalledAppFlow.from_client_secrets_file(
+                CLIENT_SECRET_FILE, scopes)
+    credentials = flow.run_console()
+    youtube = build(
+        YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, credentials=credentials)
+
+    body = dict(
+        snippet=dict(
+            title=title,
+            description=description
+        ),
+        status=dict(
+            privacyStatus='private'
+        ) 
+    )
+    request = youtube.playlists().insert(part='snippet, status',
+                               body=body
+                               )
+    response = request.execute()
+    print(response)
+    playlist_id = response['id']
+    for video_id in playlist:
+        request = youtube.playlistItems().insert(
+            part="snippet",
+            body={
+              "snippet": {
+                "playlistId": playlist_id,
+                "position": 0,
+                "resourceId": {
+                  "kind": "youtube#video",
+                  "videoId": video_id
+                }
+              }
+            }
+        )
+        response = request.execute()
+        print(response)
