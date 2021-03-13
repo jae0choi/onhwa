@@ -1,0 +1,27 @@
+<html>
+    <body>
+        
+        <!-- Search Form -->
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.query.label }}<br>
+                {{ form.query(size=32) }}
+            </p>
+            <p>
+            {{form.submit() }} </p>
+        </form>
+
+        <br>
+
+        <!-- Show search results here -->
+        {% for video in videos %}
+        <div><p>{{ video.id }} : {{ video.title }}</p>
+            <iframe id='ytplayer' type='text/html', width='320' height='180'
+            src="http://www.youtube.com/embed/{{ video.id }}" 
+            frameborder="0"></iframe>
+        </div>
+        {% endfor %}
+
+    </body>
+</html>
