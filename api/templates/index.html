@@ -1,27 +1,53 @@
 <html>
-    <body>
+    <head>
         
+        <script src="{{url_for('.static', filename='js/jquery-3.6.0.js')}}"></script>
+    </head>
+
+    <body>
+
         <!-- Search Form -->
-        <form action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
+        <form id='search_youtube' action="/search_youtube" method="post" novalidate>
+            {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->
             <p>
                 {{ form.query.label }}<br>
                 {{ form.query(size=32) }}
             </p>
             <p>
-            {{form.submit() }} </p>
+            <input type="submit" value="Go" id='search'> 
+            </p>
         </form>
 
         <br>
 
         <!-- Show search results here -->
-        {% for video in videos %}
-        <div><p>{{ video.id }} : {{ video.title }}</p>
-            <iframe id='ytplayer' type='text/html', width='320' height='180'
-            src="http://www.youtube.com/embed/{{ video.id }}" 
-            frameborder="0"></iframe>
-        </div>
-        {% endfor %}
+        <span id='search_result'>Result should appear here after search</span>
+
+        <script>
+            $(document).ready(function(){
+                $('form').submit(function(event){
+                    event.preventDefault();
+                                    
+                    var dest_elem = $('#search_result');
+                    $(dest_elem).text('loading...');
+                    $.post('/search_youtube', {
+                        query: $('#query').val()
+                    }).done(function(response) {
+                        $(dest_elem).html('');
+                        $.each(response.data, function(index, data){
+                            $(dest_elem).append("<p>"+data['title']+"</p>");
+                            $(dest_elem).append("<iframe id='ytplayer' type='text/html', width='320' height='180' src='http://www.youtube.com/embed/" + data['id'] + "' frameborder='0'></iframe>");
+                        });
+                    }).fail(function() {
+                        $(dest_elem).text("Error: Could not contact server");
+                    });
+                });
+            });
+          
+
+        </script>
 
     </body>
+
+    
 </html>
