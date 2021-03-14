@@ -38,18 +38,19 @@ def load_playlist():
 @app.route('/edit_playlist', methods=['GET', 'POST'])
 def edit_playlist():
     global playlist
-    vid = request.form['video_id']
     mode = request.form['mode']
+    vid = request.form['video_id']
     if mode == 'add':
-        playlist.append(vid)
+        video_title = request.form['video_title']
+        playlist.append({'video_id': vid, 'video_title': video_title})
     elif mode == 'remove':
-        playlist.remove(vid)
-    pp.pprint(playlist)
+        playlist = [video for video in playlist if video['video_id'] != vid]
+    #pp.pprint(playlist)
     return jsonify(data=playlist)
 
 @app.route('/export_playlist', methods=['GET'])
 def export_pl():
-    title = 'Onhwa Cafe'
+    playlist_title = 'Onhwa Cafe'
     description = 'Onhwa Cafe Playlist'
-    export_playlist(title, description, playlist)
+    export_playlist(playlist_title, description, playlist)
     return jsonify(data='OK')

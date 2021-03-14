@@ -33,7 +33,7 @@ def youtube_search(query):
         #pp.pprint(resp)
         for result in resp.get('items', []):
             if result['id']['kind'] == 'youtube#video':
-                feed = {'id': result['id']['videoId'], 'title': result['snippet']['title']}
+                feed = {'video_id': result['id']['videoId'], 'video_title': result['snippet']['title']}
                 videos.append(feed)
 
     except Exception:
