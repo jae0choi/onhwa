@@ -24,9 +24,8 @@ function load_playlist(){
         console.log(playlist);
         $.each(playlist.data, function(index, value){
             console.log(index, value);
-            $('#playlist').append("<p>"+value['video_title']+"</p>");
-            $('#playlist').append("<img width='120' height='60' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'>");
-            $('#playlist').append("<button type='button' onclick='remove_song(\"" + value['video_id'] +"\")'>Remove</button>");
+            $('#playlist').append("<li class='added-song'><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><button class='remove' type='button' onclick='remove_song(\"" + value['video_id'] +"\")'>Remove</button></li>");
+
         });
     });
 }
@@ -38,6 +37,9 @@ function export_playlist(){
 }
 $(document).ready(function(){
     load_playlist()
+    $( "#playlist" ).sortable();
+    $( "#playlist" ).disableSelection();
+
     $('form').submit(function(event){
         event.preventDefault();
                         
@@ -49,9 +51,7 @@ $(document).ready(function(){
             $(dest_elem).html('');
             console.log(response.data)
             $.each(response.data, function(index, value){
-                $(dest_elem).append("<p>"+value['video_title']+"</p>");
-                $(dest_elem).append("<iframe id='ytplayer' type='text/html', width='320' height='180' src='http://www.youtube.com/embed/" + value['video_id'] + "' frameborder='0'></iframe>");
-                $(dest_elem).append("<button type='button' onclick='add_song(\"" + value['video_id'] +"\", \"" + value['video_title'] + "\")'>Add to playlist</button>");
+                $(dest_elem).append("<div class='searched-song'><iframe id='ytplayer' class='player-thumbnail' type='text/html', width='320' height='180' src='http://www.youtube.com/embed/" + value['video_id'] + "' frameborder='0'></iframe><p>"+value['video_title']+"</p><button type='button' onclick='add_song(\"" + value['video_id'] +"\", \"" + value['video_title'] + "\")'>Add to playlist</button></div>");
             });
         }).fail(function() {
             $(dest_elem).text("Error: Could not contact server");
