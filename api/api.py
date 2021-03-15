@@ -27,7 +27,8 @@ playlist = [{'video_id': 'fBVtXuA-xB8', 'video_title': 'Relaxing Bossa Nova & Ja
 
 @app.route('/', methods=['GET'])
 def main():
-    return render_template('main.html')
+    form = Form()
+    return render_template('main.html',  form=form)
 
 
 @app.route('/dj', methods=['GET'])
