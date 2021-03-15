@@ -1,3 +1,5 @@
+var video_ids;
+
 function add_song(video_id, video_title){
     edit_playlist(video_id, video_title, 'add');
 }
@@ -22,17 +24,12 @@ function load_playlist(){
     $.get('/load_playlist', function(playlist){
         $('#playlist').html('')
      //   console.log(playlist);
+        video_ids = [];
         $.each(playlist.data, function(index, value){
-/*<<<<<<< HEAD
-     //       console.log(index, value);
-            $('#playlist').append("<p>"+value['video_title']+"</p>");
-            $('#playlist').append("<img width='120' height='60' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'>");
-            $('#playlist').append("<button type='button' onclick='remove_song(\"" + value['video_id'] +"\")'>Remove</button>");
-=======*/
             console.log(index, value);
+            video_ids.push(value['video_id']);
             $('#playlist').append("<li class='added-song'><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><button class='remove' type='button' onclick='remove_song(\"" + value['video_id'] +"\")'>Remove</button></li>");
 
-//>>>>>>> 991f71592a2419d8929f66a192e886c57b3eb7bd
         });
     });
 }
@@ -43,7 +40,9 @@ function export_playlist(){
 
 }
 $(document).ready(function(){
-    load_playlist()
+    init_player();
+    load_playlist();
+
     $( "#playlist" ).sortable();
     $( "#playlist" ).disableSelection();
 
