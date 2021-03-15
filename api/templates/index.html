@@ -17,12 +17,15 @@
         <div class="main-container">
             <div class="player-container">
                 <h2>On air</h2>
-                <div class="player"></div>            
+                <div class="player"></div>      
+                <div class="controls">
+                    <div class="icon prev"></div>
+                    <div class="icon play"></div>
+                    <div class="icon next"></div>
+                </div>      
             </div>
             <div class="playlist-container">
                 <h2>플레이리스트</h2>
-                <button class="export" type='button' onclick='export_playlist()'>플레이리스트 내보내기</button>
-
                 <ul class="playlist" id='playlist'>
                     <!-- Show current playlist here-->
                     <div class="added-song">
@@ -31,6 +34,7 @@
                         <button class="remove"></button>
                     </div>
                 </ul>
+                유튜브로 플레이리스트 내보내기 (하루 한번만) <img class="icon export" src="./static/image/youtube.svg" onclick='export_playlist()'/>
             </div>
         </div>
         <div class="bottom-container">
@@ -41,8 +45,11 @@
                     <form id='search_youtube' action="/search_youtube" method="post" novalidate>
                         {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->
                         <!-- {{ form.query.label }}<br> -->
-                        {{ form.query(size=32) }}
-                        <input type="submit" value="검색" id='search'> 
+                        {{ form.query(size=24, placeholder="노래 검색") }}
+                        <button type="submit"  id='search'>
+                            <img class="icon search" src="./static/image/search.svg">
+                        </button>
+                        <!-- <input type="submit" value="검색" id='search'>  -->
                     </form>
                 </div>
                 <div class="search-result">

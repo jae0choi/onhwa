@@ -24,7 +24,7 @@ function load_playlist(){
         console.log(playlist);
         $.each(playlist.data, function(index, value){
             console.log(index, value);
-            $('#playlist').append("<li class='added-song'><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><button class='remove' type='button' onclick='remove_song(\"" + value['video_id'] +"\")'>Remove</button></li>");
+            $('#playlist').append("<li class='added-song'><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
 
         });
     });
@@ -51,7 +51,7 @@ $(document).ready(function(){
             $(dest_elem).html('');
             console.log(response.data)
             $.each(response.data, function(index, value){
-                $(dest_elem).append("<div class='searched-song'><iframe id='ytplayer' class='player-thumbnail' type='text/html', width='320' height='180' src='http://www.youtube.com/embed/" + value['video_id'] + "' frameborder='0'></iframe><p>"+value['video_title']+"</p><button type='button' onclick='add_song(\"" + value['video_id'] +"\", \"" + value['video_title'] + "\")'>Add to playlist</button></div>");
+                $(dest_elem).append("<div class='searched-song'><iframe id='ytplayer' class='player-thumbnail' type='text/html', width='320' height='180' src='http://www.youtube.com/embed/" + value['video_id'] + "' frameborder='0'></iframe><p>"+value['video_title']+"</p><button type='button' onclick='add_song(\"" + value['video_id'] +"\", \"" + value['video_title'] + "\")'><img class='icon add' src='./static/image/plus.svg'/>플레이리스트에 추가</button></div>");
             });
         }).fail(function() {
             $(dest_elem).text("Error: Could not contact server");

@@ -1,14 +1,11 @@
 @font-face
     font-family: BMDOHYEON
     src: url(./font/BMDOHYEON.woff) format('woff')
-@font-face
-    font-family: BMHANNA_11yrs
-    src: url(./font/BMHANNA_11yrs.woff) format('woff')
-
     
 $base-color: #F9F9F1
 $second-color: #DBE3CC
 $tertiary-color: #B5C7AD
+$font-color: #3B3B39
 
 $small: 480px
 
@@ -32,7 +29,22 @@ html, body
     margin: 0 auto
     background-color: $base-color
     height: 100%
+    color: $font-color
+
+.icon
+    width: 1em
+    cursor: pointer 
+    fill: $tertiary-color
+
+    &.trash
+        position: absolute   
+        top: 37px
+        right: 1em
+        display: none
     
+    &.add
+        margin-right: 0.5em
+        vertical-align: text-top
 
 nav
     width: 100%
@@ -58,11 +70,17 @@ nav
         background-color: white
         display: flex
         margin-bottom: 0.5em
+        position: relative
 
         .thumbnail
             height: 90px
         .title
             padding-left: 1.2em
+        
+        &:hover
+            .trash
+                display: block
+
 
     @media screen and (min-width: $small)
         max-width: 1200px
@@ -119,6 +137,8 @@ nav
     width: 100%
     background-color: $tertiary-color
     height: calc(100% - 632px)
+    font-family: BMDOHYEON, sans-serif
+
     
     h2 
         display: inline-block
@@ -141,5 +161,27 @@ nav
             text-align: center
             margin-left: 1em
             margin-bottom: 1em
+            background-color: white
+            border-radius: 5px
+
+            button
+                margin-bottom: 1em
+                height: 32px                
+                background: white
+                border-radius: 3px
+                cursor: pointer
             
-        
+    #query 
+        height: 1.5em
+        font-size: 1.5em
+        line-height: 2em
+        border-radius: 3px
+        vertical-align: revert
+        margin-left: 0.5em
+    
+    #search
+        height: 42px
+        width: 42px
+        background: white
+        border-radius: 3px
+        vertical-align: bottom

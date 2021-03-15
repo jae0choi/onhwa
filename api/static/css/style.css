@@ -3,11 +3,6 @@
   src: url(./font/BMDOHYEON.woff) format("woff");
 }
 
-@font-face {
-  font-family: BMHANNA_11yrs;
-  src: url(./font/BMHANNA_11yrs.woff) format("woff");
-}
-
 h1 {
   font-size: 4em;
   margin-top: 0;
@@ -31,6 +26,25 @@ html, body {
   margin: 0 auto;
   background-color: #F9F9F1;
   height: 100%;
+  color: #3B3B39;
+}
+
+.icon {
+  width: 1em;
+  cursor: pointer;
+  fill: #B5C7AD;
+}
+
+.icon.trash {
+  position: absolute;
+  top: 37px;
+  right: 1em;
+  display: none;
+}
+
+.icon.add {
+  margin-right: 0.5em;
+  vertical-align: text-top;
 }
 
 nav {
@@ -59,6 +73,7 @@ nav h1 {
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 0.5em;
+  position: relative;
 }
 
 .main-container .added-song .thumbnail {
@@ -67,6 +82,10 @@ nav h1 {
 
 .main-container .added-song .title {
   padding-left: 1.2em;
+}
+
+.main-container .added-song:hover .trash {
+  display: block;
 }
 
 @media screen and (min-width: 480px) {
@@ -141,6 +160,7 @@ nav h1 {
   width: 100%;
   background-color: #B5C7AD;
   height: calc(100% - 632px);
+  font-family: BMDOHYEON, sans-serif;
 }
 
 .bottom-container h2 {
@@ -174,5 +194,32 @@ nav h1 {
   text-align: center;
   margin-left: 1em;
   margin-bottom: 1em;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.bottom-container #search_result .searched-song button {
+  margin-bottom: 1em;
+  height: 32px;
+  background: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.bottom-container #query {
+  height: 1.5em;
+  font-size: 1.5em;
+  line-height: 2em;
+  border-radius: 3px;
+  vertical-align: revert;
+  margin-left: 0.5em;
+}
+
+.bottom-container #search {
+  height: 42px;
+  width: 42px;
+  background: white;
+  border-radius: 3px;
+  vertical-align: bottom;
 }
 /*# sourceMappingURL=style.css.map */
