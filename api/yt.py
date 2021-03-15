@@ -20,7 +20,7 @@ pp=pprint.PrettyPrinter(indent=4)
 
 def youtube_search(query):
     videos = []
-    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY)
+    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY, cache_discovery=False)
     try:
         resp = youtube.search().list(
                                      q=query,
@@ -61,7 +61,7 @@ def export_playlist(title, description, playlist):
                                body=body
                                )
     response = request.execute()
-    print(response)
+    app.logger.debug(response)
     playlist_id = response['id']
     for video in playlist:
         video_id = video['video_id']
@@ -79,4 +79,4 @@ def export_playlist(title, description, playlist):
             }
         )
         response = request.execute()
-        print(response)
+        app.logger.debug(response)

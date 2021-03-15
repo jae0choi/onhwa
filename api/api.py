@@ -1,5 +1,7 @@
 import os
 
+import logging
+
 from flask import Flask
 from flask import render_template
 from flask import jsonify
@@ -27,6 +29,29 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 playlist = [{'video_id': 'fBVtXuA-xB8', 'video_title': 'Relaxing Bossa Nova & Jazz Music For Study - Smooth Jazz Music - Background Music'}]
 requests = []
+
+logging.basicConfig(level = logging.DEBUG)
+
+if __name__ != '__main__':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
+else:
+    file_handler = logging.FileHandler('onhwa.log')
+    handler = logging.StreamHandler()
+    file_handler.setLevel(logging.DEBUG)
+    logging.handler.setLevel(logging.DEBUG)
+    logging.file_handler.setFormatter(Formatter(
+        '%(asctime)s %(levelname)s: %(message)s '
+        '[in %(pathname)s:%(lineno)d]'
+     ))
+    logging.handler.setFormatter(Formatter(
+        '%(asctime)s %(levelname)s: %(message)s '
+        '[in %(pathname)s:%(lineno)d]'
+     ))
+    app.logger.addHandler(handler)
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.DEBUG)
 
 @app.route('/', methods=['GET'])
 def main():
@@ -58,7 +83,8 @@ def request_song():
     q['title'] = form.title.data
     q['requester'] = form.requester.data
     requests.append(q)
-    print('current requests', requests)
+    app.logger.debug('current requests')
+    app.logger.debug(requests)
     return redirect(url_for('main'))
 
 
@@ -76,8 +102,8 @@ def edit_playlist():
         playlist.append({'video_id': vid, 'video_title': video_title})
     elif mode == 'remove':
         playlist = [video for video in playlist if video['video_id'] != vid]
-    print(mode, 'Current playlist')
-    pp.pprint(playlist)
+    app.logger.debug('Current playlist')
+    app.logger.debug(playlist)
     return jsonify(data=playlist)
 
 @app.route('/update_playlist', methods=['GET', 'POST'])
@@ -85,8 +111,9 @@ def update_playlist():
     global playlist
     video_ids = request.form.getlist('video_ids[]')
     playlist = [list(filter(lambda v: v['video_id'] == video_id, playlist))[0] for video_id in video_ids]
-  #  playlist = request.form['video_ids[]']
-    #pp.pprint(playlist)
+    
+    app.logger.debug('update_playlist')
+    app.logger.debug(playlist)
 
     return 'OK'
 
@@ -96,3 +123,5 @@ def export_pl():
     description = 'Onhwa Cafe Playlist'
     export_playlist(playlist_title, description, playlist)
     return jsonify(data='OK')
+
+
