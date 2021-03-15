@@ -108,20 +108,40 @@ nav h1 {
   width: 260px;
 }
 
+.main-container .added-song.playing {
+  background-color: #FAFAD9;
+}
+
 .main-container .added-song.playing .play-white {
   display: none;
 }
 
 .main-container .added-song.playing .pause-white {
+  display: none;
+}
+
+.main-container .added-song.playing:hover .trash {
+  display: none;
+}
+
+.main-container .added-song.playing:hover .play-white {
+  display: none;
+}
+
+.main-container .added-song.playing:hover .pause-white {
   display: block;
 }
 
-.main-container .added-song:hover .trash:not(.playing) {
+.main-container .added-song:hover .trash {
   display: block;
 }
 
-.main-container .added-song:hover .play-white:not(.playing) {
+.main-container .added-song:hover .play-white {
   display: block;
+}
+
+.main-container .added-song:hover .pause-white {
+  display: none;
 }
 
 .main-container #controller {
