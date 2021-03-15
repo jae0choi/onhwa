@@ -5,6 +5,7 @@
         <title>Onhwa cafe</title>
         <script src="{{url_for('.static', filename='js/jquery-3.6.0.js')}}"></script>
         <script src="{{url_for('.static', filename='js/jquery-ui.min.js')}}"></script>
+        <script src="{{url_for('.static', filename='js/ytplayer.js')}}"></script>
         <script src="{{url_for('.static', filename='js/onhwa.js')}}"></script>
         <link rel="stylesheet" href="{{url_for('.static', filename='css/style.css')}}">
     </head>
@@ -17,13 +18,16 @@
         <div class="main-container">
             <div class="player-container">
                 <h2>On air</h2>
-                <div class="player"></div>      
-                <div class="controls">
-                    <div class="icon prev"></div>
-                    <div class="icon play"></div>
-                    <div class="icon next"></div>
-                </div>      
+                <div id="player"></div>            
             </div>
+            <div id="controller">
+                        <!--img src="/static/img/glyphicons_085_repeat.png" class='btn' data-toggle='button' id='repeat_button'-->
+                        <a class="btn" href="javascript:void(0);" onclick="prevVideo();"><img src="/static/image/glyphicons_170_step_backward.png"></a>
+                        <span id="progress" sytle="display: inline"></span>
+                        <a class="btn" href="javascript:void(0);" onclick="nextVideo();"><img src="/static/image/glyphicons_178_step_forward.png"></a>
+                        <!--img src="/static/img/glyphicons_083_random.png" class='btn' data-toggle='button' id='random_button'-->
+                        
+                        </div>
             <div class="playlist-container">
                 <h2>플레이리스트</h2>
                 <ul class="playlist" id='playlist'>

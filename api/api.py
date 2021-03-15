@@ -4,6 +4,7 @@ from flask import Flask
 from flask import render_template
 from flask import jsonify
 from flask import request  
+from flask_sse import sse
 
 from forms import Form
 
@@ -14,6 +15,10 @@ from yt import youtube_search
 from yt import export_playlist
 
 app = Flask(__name__)
+'''
+app.config["REDIS_URL"] = 'redis://localhost'
+app.register_blueprint(sse, url_prefix='/stream')
+'''
 
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -24,6 +29,11 @@ playlist = []
 def main():
     form = Form()
     return render_template('index.html', form=form)
+
+@app.route('/send')
+def send_message():
+    sse.publish({'message': 'Hello!'}, type='greeting')
+    return 'Msg sent'
 
 @app.route('/search_youtube', methods=['GET', 'POST'])
 def search_youtube():

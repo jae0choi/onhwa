@@ -63,7 +63,8 @@ def export_playlist(title, description, playlist):
     response = request.execute()
     print(response)
     playlist_id = response['id']
-    for video_id in playlist:
+    for video in playlist:
+        video_id = video['video_id']
         request = youtube.playlistItems().insert(
             part="snippet",
             body={
