@@ -10,7 +10,7 @@ function init_player(){
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
-var current_video_index;
+var current_video_id;
 
 function onYouTubeIframeAPIReady() {
     current_video_index = 0;
@@ -26,16 +26,28 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
-function play_video_at(index){
-    load_player_with_id(index);
+function play_video(video_id){
+    load_player_with_id(video_id);
 }
-function load_player_with_id(index){
-    player.loadVideoById(video_ids[index]);
+function load_player_with_id(video_id){
+    player.loadVideoById(video_id);
     var iframe = $('#player');
     var src = iframe.attr('src');
     var res = src.split('?')[0];
     res += ' frameborder="0" allowfullscreen'
+    playlist_update();
+}
 
+function playlist_update(){
+    $('#playlist li').each(function(index){
+        console.log('playlist_update', index);
+        if ($(this).hasClass("playing")){
+            $(this).removeClass("playing");
+        }
+        if (index == getCurrentIndex()){
+            $(this).addClass("playing");
+        }
+    });
 }
 
 // 4. The API will call this function when the video player is ready.
@@ -54,34 +66,39 @@ function onPlayerError(event){
     nextVideo();
 }
 
-function getNextIndex(cur_index){
-    return cur_index+1
+function getCurrentIndex(){
+    return video_ids.indexOf(current_video_id)
 }
-function getPrevIndex(cur_index){
-    return cur_index-1
+function getNextIndex(){
+    new_video_index = getCurrentIndex()+1;
+    number_of_videos = video_ids.length;
+    if (new_video_index == number_of_videos){
+        new_video_index = 0;
+    } 
+    return new_video_index
+}
+function getPrevIndex(){
+    new_video_index = getCurentIndex()-1;
+    if (new_video_index == -1){
+            number_of_videos = video_ids.length;
+            new_video_index = number_of_videos - 1;
+    }
+    return new_video_index
 }
 function nextVideo() {
     if (player) {
-        new_video_index = getNextIndex(current_video_index);
-        number_of_videos = video_ids.length;
-
-        if (new_video_index == number_of_videos){
-            new_video_index = 0;
-        }
-        current_video_index = new_video_index;
-        load_player_with_id(new_video_index);
+        new_video_id = video_ids[getNextIndex()];
+        current_video_id = new_video_id;
+        load_player_with_id(new_video_id);
     }
 }
 
 function prevVideo(){
     if (player) {
-        new_video_index = getPrevIndex(current_video_index);
-        if (new_video_index == -1){
-            number_of_videos = video_ids.length;
-            new_video_index = number_of_videos - 1;
-        }
-        current_video_index = new_video_index;
-        load_player_with_id(new_video_index);
+        new_video_id = video_ids[getPrevIndex()];
+        
+        current_video_id = new_video_id;
+        load_player_with_id(new_video_id);
     }
 }
 
