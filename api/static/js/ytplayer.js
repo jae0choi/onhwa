@@ -51,7 +51,7 @@ function onPlayerStateChange(event) {
     }
 }
 function onPlayerError(event){
-    nextVideo();
+    // nextVideo();
 }
 
 function getNextIndex(cur_index){

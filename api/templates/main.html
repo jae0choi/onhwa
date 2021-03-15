@@ -13,10 +13,36 @@
     <body>
         <nav>
             <img src="{{url_for('.static', filename='./image/logo.png')}}" alt="">
-            <h1>온화카페 DJ 부스</h1>
+            <h1>온화카페: 소소한 이야기</h1>
         </nav>
+        <div class="main-container">
+            <!-- <div class="request">
+                <form id='search_youtube' action="/search_youtube" method="post" novalidate>
+                    {{ form.hidden_tag() }}  
+                    {{ form.query(size=24, placeholder="노래 검색") }}
+                    <button type="submit"  id='search'>
+                        <img class="icon search" src="./static/image/search.svg">
+                    </button>
+                </form>
+            </div>
+            <div class="result-song" id='search_result'></div> -->
+            <div class="description">
+            온화카페는 모두 함께 잠시 쉬어갈 수 있는 따뜻한 공간이야. 편하게 와서 같이 작업하고 쉬다가 가.
+            따뜻한 음악과 공간, 그리고 삶의 작은 이야기를 함께 나눌 수 있는 온화카페에서 자주 만나자.
+            </div>
+            <div class="openhour">
+            오픈
+            (월~금) 미국 시간 PDT 10AM - 5PM
+            (월~금) 한국 시간 KST 2AM - 9AM
 
-        <footer></footer>
+            </div>
+            <div class="instagram">
+            </div>
+            <div class="staff">
+
+            </div>
+        </div>
+        <footer>© 2021 온화카페, All Rights Reserved</footer>
     </body>
 
 </html>

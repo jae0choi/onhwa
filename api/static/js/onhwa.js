@@ -24,11 +24,12 @@ function load_playlist(){
     $.get('/load_playlist', function(playlist){
         $('#playlist').html('')
      //   console.log(playlist);
+
         video_ids = [];
         $.each(playlist.data, function(index, value){
             console.log(index, value);
             video_ids.push(value['video_id']);
-            $('#playlist').append("<li class='added-song'><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
+            $('#playlist').append("<li class='added-song'><img class='icon play-white' src='./static/image/play-white.svg'/><img class='icon pause-white' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
         });
     });
 }
