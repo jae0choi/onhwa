@@ -76,14 +76,15 @@ def edit_playlist():
         playlist.append({'video_id': vid, 'video_title': video_title})
     elif mode == 'remove':
         playlist = [video for video in playlist if video['video_id'] != vid]
-    #pp.pprint(playlist)
+    print(mode, 'Current playlist')
+    pp.pprint(playlist)
     return jsonify(data=playlist)
 
 @app.route('/update_playlist', methods=['GET', 'POST'])
 def update_playlist():
     global playlist
     video_ids = request.form.getlist('video_ids[]')
-    playlist = [filter(lambda v: v['video_id'] == video_id, playlist)[0] for video_id in video_ids]
+    playlist = [list(filter(lambda v: v['video_id'] == video_id, playlist))[0] for video_id in video_ids]
   #  playlist = request.form['video_ids[]']
     #pp.pprint(playlist)
 
