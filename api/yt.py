@@ -25,7 +25,7 @@ def youtube_search(query):
         resp = youtube.search().list(
                                      q=query,
                                      part='id,snippet',
-                                     maxResults=5,
+                                     maxResults=8,
                                      type='video',
                                      videoEmbeddable='true',
                                      order='relevance'
