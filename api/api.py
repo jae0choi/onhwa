@@ -4,7 +4,7 @@ from flask import Flask
 from flask import render_template
 from flask import jsonify
 from flask import request  
-from flask_sse import sse
+#from flask_sse import sse
 
 from forms import Form
 
@@ -27,6 +27,11 @@ playlist = []
 
 @app.route('/', methods=['GET'])
 def main():
+    return render_template('main.html')
+
+
+@app.route('/dj', methods=['GET'])
+def dj():
     form = Form()
     return render_template('index.html', form=form)
 
