@@ -68,7 +68,7 @@ $(document).ready(function(){
     });
     $( "#playlist" ).disableSelection();
 
-    $('form').submit(function(event){
+    $('#search_youtube').submit(function(event){
         event.preventDefault();
                         
         var dest_elem = $('#search_result');
