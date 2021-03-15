@@ -76,7 +76,7 @@ def edit_playlist():
         playlist.append({'video_id': vid, 'video_title': video_title})
     elif mode == 'remove':
         playlist = [video for video in playlist if video['video_id'] != vid]
-    print(mode, ' edited playlist')
+    print(mode, 'Current playlist')
     pp.pprint(playlist)
     return jsonify(data=playlist)
 
