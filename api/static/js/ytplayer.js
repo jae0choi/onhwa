@@ -11,6 +11,7 @@ function init_player(){
 //    after the API code downloads.
 var player;
 var current_video_id;
+var video_ids;
 
 function onYouTubeIframeAPIReady() {
     current_video_id = video_ids[0];
