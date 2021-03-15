@@ -13,17 +13,18 @@ var player;
 var current_video_id;
 
 function onYouTubeIframeAPIReady() {
-    current_video_index = 0;
+    current_video_id = video_ids[0];
     player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: video_ids[current_video_index],
+        videoId: current_video_id,
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange,
             'onError': onPlayerError
         }
     });
+    playlist_update();
 }
 
 function play_video(video_id){
@@ -62,7 +63,7 @@ function onPlayerStateChange(event) {
     }
 }
 function onPlayerError(event){
-    // nextVideo();
+    nextVideo();
 }
 
 function getCurrentIndex(){
