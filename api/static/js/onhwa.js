@@ -42,7 +42,9 @@ function load_playlist(){
             video_ids.push(value['video_id']);
             $('#playlist').append("<li class='added-song' id='"+ value['video_id'] +"'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\""+ value['video_id'] +"\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
         });
+        playlist_update();
     });
+
 }
 function export_playlist(){
     $.get('/export_playlist', function(){
@@ -68,7 +70,7 @@ $(document).ready(function(){
     });
     $( "#playlist" ).disableSelection();
 
-    $('form').submit(function(event){
+    $('#search_youtube').submit(function(event){
         event.preventDefault();
                         
         var dest_elem = $('#search_result');

@@ -39,15 +39,18 @@
                 <div class="divider"></div>
             </div>
             
-            <!-- <div class="request">
+            <div class="request">
                 <h2>신청곡</h2>
                 <form id='request_song' action="/request_song" method="post" novalidate>
-                    
+                    {{ form.hidden_tag() }} 
+                    {{ form.artist(size=24, placeholder="아티스트") }}
+                    {{ form.title(size=24, placeholder="제목") }}
+                    {{ form.title(size=24, placeholder="신청자") }}
                     <button type="submit">
                         틀어주세요
                     </button>
                 </form>
-            </div> -->
+            </div>
 
             
         </div>

@@ -6,11 +6,11 @@ from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 
-DEVELOPER_KEY ='AIzaSyC1LLUmK0oAoglnUwPEd9q3a64OU3kRbGY'
+#DEVELOPER_KEY ='AIzaSyC1LLUmK0oAoglnUwPEd9q3a64OU3kRbGY'
+DEVELOPER_KEY = 'AIzaSyDl3jE7r52FaATNMQ-pXdtwHDSB59tqTjA'
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
-#CLIENT_SECRET_FILE = 'client_secret_145017187676-66316e2nllhgl90olvf4h94eao38g9nl.apps.googleusercontent.com.json'
-CLIENT_SECRET_FILE = 'client_secret_145017187676-h9rdc5e1qfh8k7phdrqc5ip66bdf13da.apps.googleusercontent.com.json'
+CLIENT_SECRET_FILE = 'client_secret.json'
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 

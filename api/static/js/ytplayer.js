@@ -90,7 +90,7 @@ function getNextIndex(){
     return new_video_index
 }
 function getPrevIndex(){
-    new_video_index = getCurentIndex()-1;
+    new_video_index = getCurrentIndex()-1;
     if (new_video_index == -1){
             number_of_videos = video_ids.length;
             new_video_index = number_of_videos - 1;
