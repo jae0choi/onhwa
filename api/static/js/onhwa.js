@@ -1,4 +1,4 @@
-var video_ids;
+
 
 function add_song(video_id, video_title){
     edit_playlist(video_id, video_title, 'add');
@@ -53,8 +53,8 @@ function export_playlist(){
 
 
 $(document).ready(function(){
-    init_player();
     load_playlist();
+    init_player();
 
     $( "#playlist" ).sortable({
         update: function(event){
