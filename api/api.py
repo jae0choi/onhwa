@@ -47,6 +47,15 @@ def search_youtube():
     q = form.query.data
     return jsonify(data=youtube_search(q))
 
+# @app.route('/request_song', methods=['GET', 'POST'])
+# def request_song():
+#     form = Form()
+#     q.singer = form.singer.data
+#     q.title = form.title.data
+#     q.requester = form.requester.data
+#     return jsonify(data=q)
+
+
 @app.route('/load_playlist', methods=['GET'])
 def load_playlist():
     return jsonify(data=playlist)

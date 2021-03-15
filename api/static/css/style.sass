@@ -6,6 +6,8 @@ $base-color: #F9F9F1
 $second-color: #DBE3CC
 $tertiary-color: #B5C7AD
 $font-color: #3B3B39
+$highlight-color: #FAFAD9
+
 
 $small: 480px
 
@@ -99,17 +101,30 @@ nav
             width: 260px
         
         &.playing
+            background-color: $highlight-color 
             .play-white
                 display: none
             .pause-white
-                display: block
+                display: none
 
+            &:hover
+                .trash
+                    display: none
+                .play-white
+                    display: none
+                .pause-white
+                    display: block
 
         &:hover
-            .trash:not(.playing)
+            .trash
                 display: block
-            .play-white:not(.playing)
+            .play-white
                 display: block
+            .pause-white
+                display: none
+
+
+
 
     #controller
         display: inline-block

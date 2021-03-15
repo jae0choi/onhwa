@@ -40,7 +40,7 @@ function load_playlist(){
         $.each(playlist.data, function(index, value){
        //     console.log(index, value);
             video_ids.push(value['video_id']);
-            $('#playlist').append("<li class='added-song' id='"+ value['video_id'] +"'><img class='icon play-white' src='./static/image/play-white.svg'/><img class='icon pause-white' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
+            $('#playlist').append("<li class='added-song' id='"+ value['video_id'] +"'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\""+ value['video_id'] +"\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
         });
     });
 }
@@ -85,6 +85,8 @@ $(document).ready(function(){
             $(dest_elem).text("Error: Could not contact server");
         });
     });
+
+    
     /*
     var source = new EventSource("{{ url_for('sse.stream') }}");
     source.addEventListener('greeting', function(event) {

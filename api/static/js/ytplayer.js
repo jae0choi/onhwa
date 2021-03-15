@@ -17,7 +17,8 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: current_video_id,
+        videoId: current_video_id, 
+        controls: false,
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange,
@@ -28,8 +29,10 @@ function onYouTubeIframeAPIReady() {
 }
 
 function play_video(video_id){
+    current_video_id = video_id;
     load_player_with_id(video_id);
 }
+
 function load_player_with_id(video_id){
     player.loadVideoById(video_id);
     var iframe = $('#player');
@@ -46,6 +49,14 @@ function playlist_update(){
         }
         if (index == getCurrentIndex()){
             $(this).addClass("playing");
+        }
+    });
+}
+
+function remove_playing(){
+    $('#playlist li').each(function(index){
+        if ($(this).hasClass("playing")){
+            $(this).removeClass("playing");
         }
     });
 }
@@ -103,13 +114,14 @@ function prevVideo(){
 }
 
 function play() {
-    if (ytplayer) {
-        ytplayer.playVideo();
+    if (player) {
+        player.playVideo();
     }
 }
 function pause() {
-    if (ytplayer) {
-        ytplayer.pauseVideo();
+    if (player) {
+        player.pauseVideo();
+        remove_playing();
     }
 }
 function stopVideo() {

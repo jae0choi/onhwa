@@ -11,34 +11,31 @@
     </head>
 
     <body>
-        <nav>
-            <img src="{{url_for('.static', filename='./image/logo.png')}}" alt="">
-            <h1>온화카페: 소소한 이야기</h1>
-        </nav>
         <div class="main-container">
+            <img src="{{url_for('.static', filename='./image/logo.png')}}" alt="">
+            <h1>온화카페<a class="instagram" href="https://www.instagram.com/onhwacafe/" target="_blank"><img src="static/image/instagram.png"/></a></h1>
             <div class="openhour">
-                오픈
-                (월~금) 미국 시간 PDT 10AM - 5PM
-                (월~금) 한국 시간 KST 2AM - 9AM
+                <div class="divider"></div>
+                <h2>영업 시간</h2>
+                (월~금) 미국 시간 🇺🇸 PDT 10AM - 5PM<br>
+                (화~토) 한국 시간 🇰🇷 KST 2AM - 9AM
+                <div class="divider"></div>
             </div>
-    
+            
             <!-- <div class="request">
-                <form id='search_youtube' action="/search_youtube" method="post" novalidate>
-                    {{ form.hidden_tag() }}  
-                    {{ form.query(size=24, placeholder="노래 검색") }}
-                    <button type="submit"  id='search'>
-                        <img class="icon search" src="./static/image/search.svg">
+                <h2>신청곡</h2>
+                <form id='request_song' action="/request_song" method="post" novalidate>
+                    
+                    <button type="submit">
+                        틀어주세요
                     </button>
                 </form>
-            </div>
-            <div class="result-song" id='search_result'></div> -->
-            <div class="instagram">
-            </div>
-            <div class="staff">
+            </div> -->
 
-            </div>
+            
+            <div class="staff"></div>
         </div>
-        <footer>© 2021 온화카페, All Rights Reserved</footer>
+        <footer>© 2021 온화카페, All Rights Reserved | designed by Team Javis (@chanitect, @mud0ri)</footer>
     </body>
 
 </html>
