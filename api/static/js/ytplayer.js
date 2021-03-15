@@ -26,6 +26,9 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
+function play_video_at(index){
+    load_player_with_id(index);
+}
 function load_player_with_id(index){
     player.loadVideoById(video_ids[index]);
     var iframe = $('#player');
