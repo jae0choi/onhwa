@@ -40,7 +40,6 @@ function load_player_with_id(video_id){
 
 function playlist_update(){
     $('#playlist li').each(function(index){
-        console.log('playlist_update', index);
         if ($(this).hasClass("playing")){
             $(this).removeClass("playing");
         }
