@@ -20,6 +20,17 @@ function edit_playlist(video_id, video_title, mode) {
     });
     load_playlist();
 }
+function update_playlist(){
+    $.post('/update_playlist', {
+        video_ids: video_ids
+    }).done(function(response) {
+        console.log('video_ids push success');
+        
+    }).fail(function(){
+        console.log('video ids push failed');
+    });
+    load_playlist(); 
+}
 function load_playlist(){
     $.get('/load_playlist', function(playlist){
         $('#playlist').html('')
@@ -27,9 +38,9 @@ function load_playlist(){
 
         video_ids = [];
         $.each(playlist.data, function(index, value){
-            console.log(index, value);
+       //     console.log(index, value);
             video_ids.push(value['video_id']);
-            $('#playlist').append("<li class='added-song'><img class='icon play-white' src='./static/image/play-white.svg'/><img class='icon pause-white' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
+            $('#playlist').append("<li class='added-song' id='"+ value['video_id'] +"'><img class='icon play-white' src='./static/image/play-white.svg'/><img class='icon pause-white' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>"+value['video_title']+"</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] +"\")'/></li>");
         });
     });
 }
@@ -39,11 +50,22 @@ function export_playlist(){
     });
 
 }
+
+
 $(document).ready(function(){
     init_player();
     load_playlist();
 
-    $( "#playlist" ).sortable();
+    $( "#playlist" ).sortable({
+        update: function(event){
+            //update playlist index
+            var sorted_ids = $('#playlist').sortable("toArray");
+            video_ids = sorted_ids;
+            update_playlist();
+      //      console.log('sortable to array');
+      //      console.log(sorted_ids);
+        }
+    });
     $( "#playlist" ).disableSelection();
 
     $('form').submit(function(event){

@@ -23,7 +23,7 @@ app.register_blueprint(sse, url_prefix='/stream')
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
-playlist = []
+playlist = [{'video_id': 'fBVtXuA-xB8', 'video_title': 'Relaxing Bossa Nova & Jazz Music For Study - Smooth Jazz Music - Background Music'}]
 
 @app.route('/', methods=['GET'])
 def main():
@@ -63,6 +63,16 @@ def edit_playlist():
         playlist = [video for video in playlist if video['video_id'] != vid]
     #pp.pprint(playlist)
     return jsonify(data=playlist)
+
+@app.route('/update_playlist', methods=['GET', 'POST'])
+def update_playlist():
+    global playlist
+    video_ids = request.form.getlist('video_ids[]')
+    playlist = [filter(lambda v: v['video_id'] == video_id, playlist)[0] for video_id in video_ids]
+  #  playlist = request.form['video_ids[]']
+    #pp.pprint(playlist)
+
+    return 'OK'
 
 @app.route('/export_playlist', methods=['GET'])
 def export_pl():
