@@ -1,0 +1,100 @@
+@font-face
+    font-family: BMDOHYEON
+    src: url(./font/BMDOHYEON.woff) format('woff')
+    
+$base-color: #F9F9F1
+$second-color: #DBE3CC
+$tertiary-color: #B5C7AD
+$font-color: #3B3B39
+
+$small: 480px
+
+h1 
+    font-size: 4em
+    margin-top: 0
+    margin-bottom: 0
+    
+h2
+    font-size: 2em
+    margin-top: 0
+    margin-bottom: 0
+    
+html, body
+    font-family: BMDOHYEON, sans-serif
+    margin: 0 auto
+    background-color: $base-color
+    height: 100%
+    color: $font-color
+
+
+.main-container
+    max-width: 1200px
+    width: 100%
+    text-align: center
+    margin: 0 auto
+
+    img 
+        width: 240px
+
+    .instagram 
+        text-decoration: none
+        margin-left: 8px
+
+        img
+            width: 24px
+            vertical-align: middle
+        &:visited
+            color: $font-color
+    
+    .openhour
+        width: 100%
+        margin: 0 auto
+        padding: 2em 0 0
+
+    .request
+        padding: 2em 0 
+        height: auto
+        min-height: 400px
+        background-color: $second-color
+
+        button
+            height: 32px
+            background: white
+            border-radius: 3px
+            cursor: pointer
+
+    .divider
+        width: 300px
+        border-top: 2px solid $font-color
+        border-bottom: 2px solid $font-color
+        margin: 2em auto
+
+    
+    .staff
+        max-width: 600px
+        width: 100%
+        margin: 0 auto
+
+        ul
+            display: flex
+            list-style: none
+            flex-wrap: wrap
+            width: 600px
+            li
+                margin-right: 16px
+                img
+                    width: 96px
+                    height: 96px
+                    border-radius: 50%
+                p
+                    font-family: BMDOHYEON, sans-serif
+                    margin-top: 0.5em
+
+
+footer
+    position: absolute
+    height: 40px
+    bottom: 0
+    width: 100%
+    line-height: 40px
+    text-align: center
