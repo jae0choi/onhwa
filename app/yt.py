@@ -5,22 +5,12 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-
-#DEVELOPER_KEY ='AIzaSyC1LLUmK0oAoglnUwPEd9q3a64OU3kRbGY'
-DEVELOPER_KEY = 'AIzaSyDl3jE7r52FaATNMQ-pXdtwHDSB59tqTjA'
-YOUTUBE_API_SERVICE_NAME = 'youtube'
-YOUTUBE_API_VERSION = 'v3'
-CLIENT_SECRET_FILE = 'client_secret.json'
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
-
-import pprint
-pp=pprint.PrettyPrinter(indent=4)
-
+from app import app
+app.logger.debug('Current environment: %s', app.env)
 
 def youtube_search(query):
     videos = []
-    youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=DEVELOPER_KEY, cache_discovery=False)
+    youtube = build(os.getenv('YOUTUBE_API_SERVICE_NAME'), os.getenv('YOUTUBE_API_VERSION'), developerKey=os.getenv('DEVELOPER_KEY'), cache_discovery=False)
     try:
         resp = youtube.search().list(
                                      q=query,
@@ -42,11 +32,17 @@ def youtube_search(query):
     return videos
 
 def export_playlist(title, description, playlist):
+    # Disable OAuthlib's HTTPS verification when running locally.
+    # *DO NOT* leave this option enabled in production.
+    if app.env == 'development':
+      os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    
+    scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
     flow = InstalledAppFlow.from_client_secrets_file(
-                CLIENT_SECRET_FILE, scopes)
+                os.getenv('CLIENT_SECRET_FILE'), scopes)
     credentials = flow.run_console()
     youtube = build(
-        YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, credentials=credentials)
+        os.getenv('YOUTUBE_API_SERVICE_NAME'), os.getenv('YOUTUBE_API_VERSION'), credentials=credentials)
 
     body = dict(
         snippet=dict(

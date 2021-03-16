@@ -28,7 +28,7 @@ share/python-wheels/
 MANIFEST
 
 # DB migration
-# migrations/
+migrations/
 
 # log
 logs/
@@ -36,6 +36,7 @@ logs/
 #etc
 .DS_Store
 *.json
+.env
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

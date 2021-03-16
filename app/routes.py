@@ -94,8 +94,8 @@ def reorder_playlist():
 
 @app.route('/export_playlist', methods=['GET'])
 def export_pl():
-    playlist_title = 'Onhwa Cafe'
-    description = 'Onhwa Cafe Playlist'
+    playlist_title = 'Onhwa Cafe '
+    description = 'Onhwa Cafe DJ Playlist'
     playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
     export_playlist(playlist_title, description, playlist)
     return jsonify(data='OK')
