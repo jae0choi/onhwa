@@ -1,5 +1,6 @@
 flask
 flask-wtf
+SQLAlchemy==1.3.9
 flask-sqlalchemy
 flask-migrate
 google-api-python-client

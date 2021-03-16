@@ -63,8 +63,8 @@ function export_playlist(){
 
 }
 $(document).ready(function(){
-    load_playlist();
     init_player();
+    load_playlist();
 
     $( "#playlist" ).sortable({
         update: function(event){
@@ -95,6 +95,8 @@ $(document).ready(function(){
             $(dest_elem).text("Error: Could not contact server");
         });
     });
+
+    loadVideo();
 
     
     /*

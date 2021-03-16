@@ -12,25 +12,32 @@ function init_player(){
 var player;
 var current_video_id;
 var video_ids;
+var YouTubeIframeReady = false;
 
 function onYouTubeIframeAPIReady() {
-    current_video_id = video_ids[0];
-    player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: current_video_id, 
-        controls: false,
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
-        }
+    YouTubeIframeReady = true;
+    //current_video_id = video_ids[0];
+        player = new YT.Player('player', {
+            height: '390',
+            width: '640',
+            controls: false,
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange,
+                'onError': onPlayerError
+            }
     });
-    status_update();
+}
+function loadVideo(){
+    if (YouTubeIframeReady){
+        current_video_id = video_ids[0];
+        load_player_with_id(current_video_id);
+        status_update(); 
+    }
+
 }
 
 function play_video(video_id){
-    current_video_id = video_id;
     load_player_with_id(video_id);
 }
 
