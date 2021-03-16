@@ -3,7 +3,6 @@ from flask import jsonify
 from flask import request  
 from flask import redirect, url_for
 #from flask_sse import sse
-#from flask_sqlalchemy import SQLAlchemy
 
 from app import app
 from app import db
