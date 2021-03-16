@@ -40,8 +40,8 @@ def request_song():
     q['artist'] = form.artist.data
     q['title'] = form.title.data
     q['requester'] = form.requester.data
-    app.logger.debug('current requests')
-    app.logger.debug(requests)
+   # app.logger.debug('current requests')
+   # app.logger.debug(requests)
     return redirect(url_for('main'))
 
 
