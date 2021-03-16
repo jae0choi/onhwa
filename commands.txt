@@ -1,0 +1,24 @@
+#Database init
+flask db init
+
+#Database migration
+flask db migrate
+flask db upgrade
+
+#gunicorn configuration path 
+/etc/supervisor/conf.d/onhwa.conf
+
+#gunicorn reload
+sudo supervisorctl reload
+
+#nginx configuration path
+/etc/nginx/sites-enabled/onhwa
+
+#nginx reload
+sudo service nginx reload
+
+#Deploying Application Updates
+git pull
+sudo supervisorctl stop onhwa
+flask db upgrade
+sudo supervisorctl start onhwa
