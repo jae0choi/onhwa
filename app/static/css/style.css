@@ -1,6 +1,6 @@
 @font-face {
   font-family: BMDOHYEON;
-  src: url(../font/BMDOHYEON.woff) format("woff");
+  src: url(./font/BMDOHYEON.woff) format("woff");
 }
 
 h1 {

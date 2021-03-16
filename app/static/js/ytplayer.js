@@ -38,6 +38,7 @@ function loadVideo(){
 }
 
 function play_video(video_id){
+    current_video_id = video_id;
     status_update();
     load_player_with_id(video_id);
 }
