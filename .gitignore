@@ -28,7 +28,7 @@ share/python-wheels/
 MANIFEST
 
 # DB migration
-migrations/
+# migrations/
 
 # log
 logs/
