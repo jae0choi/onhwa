@@ -8,6 +8,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from app import app
 app.logger.debug('Current environment: %s', app.env)
 
+
 def youtube_search(query):
     videos = []
     youtube = build(os.getenv('YOUTUBE_API_SERVICE_NAME'), os.getenv('YOUTUBE_API_VERSION'), developerKey=os.getenv('DEVELOPER_KEY'), cache_discovery=False)
@@ -20,7 +21,6 @@ def youtube_search(query):
                                      videoEmbeddable='true',
                                      order='relevance'
                                      ).execute()
-        #pp.pprint(resp)
         for result in resp.get('items', []):
             if result['id']['kind'] == 'youtube#video':
                 feed = {'video_id': result['id']['videoId'], 'video_title': result['snippet']['title']}
@@ -30,6 +30,7 @@ def youtube_search(query):
         traceback.print_exc()
 
     return videos
+
 
 def export_playlist(title, description, playlist):
     # Disable OAuthlib's HTTPS verification when running locally.

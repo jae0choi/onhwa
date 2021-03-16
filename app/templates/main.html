@@ -18,12 +18,13 @@
             <form id='request_form' action="/request_song" method="post" novalidate>
                         {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->
                         {{ form.requester(size=24, placeholder="requester") }}
-                        {{ form.artist(size=24, placeholder="requester") }}
-                        {{ form.title(size=24, placeholder="requester") }}
+                        {{ form.artist(size=24, placeholder="artist") }}
+                        {{ form.title(size=24, placeholder="title") }}
                         <button type="submit"  id='request_submit'>
                             <img class="icon search" src="./static/image/search.svg">
                         </button>
                         <!-- <input type="submit" value="검색" id='search'>  -->
+                        
             </form>
             <div class="openhour">
                 <div class="divider"></div>

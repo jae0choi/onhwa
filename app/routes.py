@@ -2,15 +2,17 @@ from flask import render_template
 from flask import jsonify
 from flask import request  
 from flask import redirect, url_for
+from flask_login import current_user, login_user
+from flask_login import logout_user
+from flask_login import login_required
 #from flask_sse import sse
+from werkzeug.urls import url_parse
 
 from app import app
 from app import db
-from app.forms import Form
-from app.forms import RequestForm
-from app.yt import youtube_search
-from app.yt import export_playlist
-from app.models import Video
+from app.forms import Form, RequestForm
+from app.yt import youtube_search, export_playlist
+from app.models import Video, Request, User
 
 @app.route('/', methods=['GET'])
 def main():
@@ -18,32 +20,40 @@ def main():
     return render_template('main.html',  form=form)
 
 @app.route('/dj', methods=['GET'])
+# @login_required
 def dj():
     form = Form()
     return render_template('index.html', form=form)
 
-@app.route('/send')
-def send_message():
-    sse.publish({'message': 'Hello!'}, type='greeting')
-    return 'Msg sent'
+'''
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
+    return render_template('login.html', title='Sign In', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+'''
 
 @app.route('/search_youtube', methods=['GET', 'POST'])
 def search_youtube():
     form = Form()
     q = form.query.data
     return jsonify(data=youtube_search(q))
-
-@app.route('/request_song', methods=['GET', 'POST'])
-def request_song():
-    form = RequestForm()
-    q = {}
-    q['artist'] = form.artist.data
-    q['title'] = form.title.data
-    q['requester'] = form.requester.data
-   # app.logger.debug('current requests')
-   # app.logger.debug(requests)
-    return redirect(url_for('main'))
-
 
 @app.route('/load_playlist', methods=['GET'])
 def load_playlist():
@@ -99,3 +109,30 @@ def export_pl():
     playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
     export_playlist(playlist_title, description, playlist)
     return jsonify(data='OK')
+
+@app.route('/request_song', methods=['GET', 'POST'])
+def request_song():
+    form = RequestForm()
+    artist = form.artist.data
+    title = form.title.data
+    requester = form.requester.data
+    app.logger.debug('Request received %s - %s - %s', requester, artist, title)
+    request = Request(requester=requester, artist = artist, title = title)
+    try:    
+        db.session.add(request)
+        db.session.commit()
+    except:
+        db.session.rollback()
+    return redirect(url_for('main'))
+
+@app.route('/get_requests', methods=['GET'])
+def get_requests():
+    requests = [req.get_dict() for req in Request.query.all()]
+    app.logger.debug('get requests')
+    app.logger.debug(requests)
+    return jsonify(data=requests)
+
+
+
+
+
