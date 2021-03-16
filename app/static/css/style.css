@@ -108,8 +108,12 @@ nav h1 {
   width: 260px;
 }
 
-.main-container .added-song.playing {
+.main-container .added-song.selected {
   background-color: #FAFAD9;
+}
+
+.main-container .added-song.selected:hover .trash {
+  display: none;
 }
 
 .main-container .added-song.playing .play-white {

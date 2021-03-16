@@ -50,8 +50,12 @@ function status_update(){
         if ($(this).hasClass("playing")){
             $(this).removeClass("playing");
         }
+        if ($(this).hasClass("selected")){
+            $(this).removeClass("selected");
+        }
         if (index == getCurrentIndex()){
             $(this).addClass("playing");
+            $(this).addClass("selected");
         }
     });
 }

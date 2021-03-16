@@ -100,8 +100,13 @@ nav
             padding-left: 1.2em
             width: 260px
         
-        &.playing
+        &.selected
             background-color: $highlight-color 
+            &:hover
+                .trash
+                    display: none            
+
+        &.playing
             .play-white
                 display: none
             .pause-white
@@ -122,8 +127,6 @@ nav
                 display: block
             .pause-white
                 display: none
-
-
 
 
     #controller
