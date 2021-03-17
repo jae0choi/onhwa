@@ -12,7 +12,9 @@ from app import app
 from app import db
 from app.forms import Form, RequestForm
 from app.yt import youtube_search, export_playlist
-from app.models import Video, Request, User
+from app.models import Video, Request, User, ServerSetting
+
+from distutils.util import strtobool
 
 @app.route('/', methods=['GET'])
 def main():
@@ -132,7 +134,15 @@ def get_requests():
     app.logger.debug(requests)
     return jsonify(data=requests)
 
+@app.route('/check_open_for_request', methods=['GET'])
+def check_open_for_request():
+    is_request_opened = ServerSetting.query.get(1).request_open
+    return jsonify(data=is_request_opened)
 
-
-
-
+@app.route('/send_request_status', methods=["POST"])
+def send_request_status():
+    is_request_open = request.form['is_request_open']
+    app.logger.debug(is_request_open)
+    ServerSetting.query.get(1).request_open = strtobool(is_request_open)
+    db.session.commit()
+    return 'OK'

@@ -110,6 +110,32 @@ function search_youtube(query) {
 
 }
 
+function send_request_status(is_request_open){
+    $.post('send_request_status', {
+        is_request_open: is_request_open
+    }).done(function(response){
+        console.log('send_request_status');
+    })
+}
+
+function check_open_for_request(){
+    $.get('/check_open_for_request', function(requests){
+        console.log(requests.data);
+        if (requests.data){
+            //main.html
+            $('#field_set').attr('disabled', false);
+            //index.html
+            $('#request_open_checkbox').attr('checked', true);
+            $('#request_open_textbox').val('requests opened');
+        }
+        else{
+            //iondex.html
+            $('#request_open_checkbox').attr('checked',false);
+            $('#request_open_textbox').val('requests closed');
+        }
+    });
+}
+
 $(document).ready(function() {
     init_player();
     load_playlist();
@@ -130,7 +156,18 @@ $(document).ready(function() {
         event.preventDefault();
         search_youtube($('#query').val());
     });
-
+    check_open_for_request();    
+      
+    $('#request_open_checkbox').change(function(){
+        if($(this).is(":checked")) {
+            $('#request_open_textbox').val('requests opened');
+        } else{
+            $('#request_open_textbox').val('requests closed');
+        }
+        send_request_status($(this).is(":checked"));
+    });
+    
+    
     loadVideo();
     load_requests();
 

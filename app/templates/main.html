@@ -16,6 +16,7 @@
             <img src="{{url_for('.static', filename='./image/logo.png')}}" alt="">
             <h1>온화카페<a class="instagram" href="https://www.instagram.com/onhwacafe/" target="_blank"><img src="static/image/instagram.png"/></a></h1>
             <form id='request_form' action="/request_song" method="post" novalidate>
+                <fieldset id="field_set" disabled>
                         {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->
                         {{ form.requester(size=24, placeholder="requester") }}
                         {{ form.artist(size=24, placeholder="artist") }}
@@ -24,7 +25,7 @@
                             <img class="icon search" src="./static/image/search.svg">
                         </button>
                         <!-- <input type="submit" value="검색" id='search'>  -->
-                        
+                </fieldset>
             </form>
             <div class="openhour">
                 <div class="divider"></div>

@@ -31,6 +31,13 @@ if not app.debug:
 
 from app import routes, models # this line is located in the bottom to avoid import loop
 
+# initialize server setting
+if db.session.query(models.ServerSetting).count() == 0:
+    setting = models.ServerSetting(request_open=False)
+    db.session.add(setting)
+    db.session.commit()
+
+
 '''
 logging.basicConfig(level = logging.DEBUG)
 if __name__ != '__main__':

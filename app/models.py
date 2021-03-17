@@ -38,6 +38,11 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+class ServerSetting(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    request_open = db.Column(db.Boolean, default=False, nullable=False)        
+       
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
