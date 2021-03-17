@@ -4,6 +4,7 @@ SQLAlchemy==1.3.9
 flask-sqlalchemy
 flask-migrate
 flask-login
+email-validator
 google-api-python-client
 google-auth-oauthlib 
 google-auth-httplib2

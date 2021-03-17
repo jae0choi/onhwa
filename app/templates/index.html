@@ -17,6 +17,14 @@
         <img src="{{url_for('.static', filename='./image/logo.png')}}" alt="">
         <h1>온화카페 DJ 부스</h1>
     </nav>
+    <div>
+        <a href="{{ url_for('dj') }}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+    </div>
     <div class="main-container">
         <div class="player-container" id="player">
         </div>

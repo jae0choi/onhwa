@@ -2,6 +2,7 @@ from flask import render_template
 from flask import jsonify
 from flask import request  
 from flask import redirect, url_for
+from flask import flash
 from flask_login import current_user, login_user
 from flask_login import logout_user
 from flask_login import login_required
@@ -10,7 +11,7 @@ from werkzeug.urls import url_parse
 
 from app import app
 from app import db
-from app.forms import Form, RequestForm
+from app.forms import Form, RequestForm, LoginForm, RegistrationForm
 from app.yt import youtube_search, export_playlist
 from app.models import Video, Request, User, ServerSetting
 
@@ -22,16 +23,16 @@ def main():
     return render_template('main.html',  form=form)
 
 @app.route('/dj', methods=['GET'])
-# @login_required
+@login_required
 def dj():
     form = Form()
     return render_template('index.html', form=form)
 
-'''
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('dj'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -41,15 +42,28 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('index')
+            next_page = url_for('dj')
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
-'''
+    return redirect(url_for('dj'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('register.html', title='Register', form=form)
 
 @app.route('/search_youtube', methods=['GET', 'POST'])
 def search_youtube():
@@ -136,6 +150,11 @@ def get_requests():
 
 @app.route('/check_open_for_request', methods=['GET'])
 def check_open_for_request():
+    # initialize server setting
+    if db.session.query(ServerSetting).count() == 0:
+        setting = ServerSetting(request_open=False)
+        db.session.add(setting)
+        db.session.commit()
     is_request_opened = ServerSetting.query.get(1).request_open
     return jsonify(data=is_request_opened)
 
