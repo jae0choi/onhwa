@@ -6,7 +6,8 @@ from flask import flash
 from flask_login import current_user, login_user
 from flask_login import logout_user
 from flask_login import login_required
-#from flask_sse import sse
+from flask_sse import sse
+
 from werkzeug.urls import url_parse
 
 from app import app
@@ -139,6 +140,8 @@ def request_song():
         db.session.commit()
     except:
         db.session.rollback()
+
+    sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
     return redirect(url_for('main'))
 
 @app.route('/get_requests', methods=['GET'])

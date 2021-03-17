@@ -1,3 +1,5 @@
+var url_sse; // SSE
+
 function add_song(video_id, video_title) {
     edit_playlist(video_id, video_title, 'add');
 }
@@ -120,7 +122,7 @@ function send_request_status(is_request_open){
 
 function check_open_for_request(){
     $.get('/check_open_for_request', function(requests){
-        console.log(requests.data);
+        //console.log(requests.data);
         if (requests.data){
             //main.html
             $('#field_set').attr('disabled', false);
@@ -135,6 +137,8 @@ function check_open_for_request(){
         }
     });
 }
+
+
 
 $(document).ready(function() {
     init_player();
@@ -169,7 +173,9 @@ $(document).ready(function() {
     
     loadVideo();
     load_requests();
-
+    //if ($('#playlist').length>0){ // is there a better way to distiguish parent html files? 
+       
+    //}
     /*
     var source = new EventSource("{{ url_for('sse.stream') }}");
     source.addEventListener('greeting', function(event) {

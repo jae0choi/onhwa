@@ -57,6 +57,24 @@
             </label>
             <ul id="requests">
             </ul>
+            <script>
+            url_sse="{{ url_for('sse.stream') }}";
+            function request_sse(){
+                console.log(url_sse);
+                var source = new EventSource(url_sse);
+                source.addEventListener('new_request', function(event) {
+                    var data = JSON.parse(event.data);
+                    console.log("The server says " + data.requester + data.artist + data.title);
+                    // index = length of requests 
+                    // $('#requests').append("<li class='pending-request'><p class='requester'>" + data.requester + "</p><p class='artist'>" + data.artist + "</p><p class='title'>" + data.title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
+                    load_requests(); // change to above
+                }, false);
+                source.addEventListener('error', function(event) {
+                    alert("Failed to connect to event stream. Is Redis running?");
+                }, false);
+            }
+            request_sse();
+            </script>
         </div>
         <div class="bottom-content">
             <h2>신청곡 추가</h2>
