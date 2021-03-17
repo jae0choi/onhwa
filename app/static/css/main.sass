@@ -31,20 +31,37 @@ html, body
     max-width: 1200px
     width: 100%
     text-align: center
-    margin: 0 auto
-
+    margin: 1em auto
+    
+    .tagline
+        margin-top: 0.5em   
+        margin-bottom: 3em 
     img 
-        width: 240px
+        width: 120px
+        display: inline-block
+        vertical-align: bottom
+    h1
+        display: inline-block
 
-    .instagram 
+    #social-container
+        h2
+            display: inline-block
+            
+        
+    .social 
         text-decoration: none
         margin-left: 8px
 
         img
             width: 24px
             vertical-align: middle
+            margin-right: 8px
+
         &:visited
             color: $font-color
+        .yt
+            width: 28px
+        
     
     .openhour
         width: 100%
@@ -71,7 +88,7 @@ html, body
 
     
     .staff
-        max-width: 600px
+        max-width: 480px
         width: 100%
         margin: 0 auto
 
@@ -79,7 +96,9 @@ html, body
             display: flex
             list-style: none
             flex-wrap: wrap
-            width: 600px
+            width: 100%
+            margin-left: -10px
+            
             li
                 margin-right: 16px
                 img
@@ -89,12 +108,106 @@ html, body
                 p
                     font-family: BMDOHYEON, sans-serif
                     margin-top: 0.5em
+    
+    .request-container
+        width: 100%
+        max-width: 600px
+        mix-width: 400px
+        margin: 0 auto
+        text-align: left
+        background-color: $second-color
 
+        @media screen and (min-width: $small) 
+            display: flex
+            height: 360px
 
-footer
-    position: absolute
-    height: 40px
-    bottom: 0
+            #field_set
+                border: none
+                padding: 0
+
+            .left
+                width: 50%
+                display: inline-block
+                padding: 1em
+
+                .field
+                    margin-top: 0.8em
+                    
+                    label
+                        display: block
+                        margin-bottom: 0.2em
+                        
+                    input
+                        height: 24px
+                        width: 90%
+                        color: white
+                        border: 0
+                        margin: 0
+                        padding: 6px 4px 4px 7px
+                        min-width: 0
+                        box-sizing: content-box
+                        letter-spacing: inherit
+
+                button
+                    margin-top: 2em
+                    padding: 6px 10px
+
+            .right
+                width: 50%
+                height: 100%
+                display: inline-block
+                background: url(../image/recording.png) no-repeat
+                
+        @media screen and (max-width: $small)
+            display: blcok
+
+            #field_set
+                border: none
+                padding: 0
+
+            .left
+                width: 100%
+                display: block
+                padding: 1em
+                .field
+                    margin-top: 0.8em
+                    
+                    label
+                        display: block
+                        margin-bottom: 0.2em
+                        
+                    input
+                        height: 24px
+                        width: 90%
+                        color: white
+                        border: 0
+                        margin: 0
+                        padding: 6px 4px 4px 7px
+                        min-width: 0
+                        box-sizing: content-box
+                        letter-spacing: inherit
+                button
+                    margin-top: 2em
+                    padding: 6px 10px
+
+            .right
+                width: 100%
+                display: none
+
+    #request-form-closed
+        background: url(../image/not-yet.png) no-repeat 
+        h2
+            margin: auto
+            color: $base-color
+    #request-form-success
+        background: url(../image/success.png) no-repeat 
+        h2
+            margin: auto
+            color: $base-color
+
+    
+#footer
+    margin-top: 8em
     width: 100%
-    line-height: 40px
+    height: 40px
     text-align: center

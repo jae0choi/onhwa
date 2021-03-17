@@ -27,25 +27,45 @@ html, body {
   max-width: 1200px;
   width: 100%;
   text-align: center;
-  margin: 0 auto;
+  margin: 1em auto;
+}
+
+.main-container .tagline {
+  margin-top: 0.5em;
+  margin-bottom: 3em;
 }
 
 .main-container img {
-  width: 240px;
+  width: 120px;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
-.main-container .instagram {
+.main-container h1 {
+  display: inline-block;
+}
+
+.main-container #social-container h2 {
+  display: inline-block;
+}
+
+.main-container .social {
   text-decoration: none;
   margin-left: 8px;
 }
 
-.main-container .instagram img {
+.main-container .social img {
   width: 24px;
   vertical-align: middle;
+  margin-right: 8px;
 }
 
-.main-container .instagram:visited {
+.main-container .social:visited {
   color: #3B3B39;
+}
+
+.main-container .social .yt {
+  width: 28px;
 }
 
 .main-container .openhour {
@@ -76,7 +96,7 @@ html, body {
 }
 
 .main-container .staff {
-  max-width: 600px;
+  max-width: 480px;
   width: 100%;
   margin: 0 auto;
 }
@@ -88,7 +108,8 @@ html, body {
   list-style: none;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 600px;
+  width: 100%;
+  margin-left: -10px;
 }
 
 .main-container .staff ul li {
@@ -106,12 +127,126 @@ html, body {
   margin-top: 0.5em;
 }
 
-footer {
-  position: absolute;
-  height: 40px;
-  bottom: 0;
+.main-container .request-container {
   width: 100%;
-  line-height: 40px;
+  max-width: 600px;
+  mix-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  background-color: #DBE3CC;
+}
+
+@media screen and (min-width: 480px) {
+  .main-container .request-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    height: 360px;
+  }
+  .main-container .request-container #field_set {
+    border: none;
+    padding: 0;
+  }
+  .main-container .request-container .left {
+    width: 50%;
+    display: inline-block;
+    padding: 1em;
+  }
+  .main-container .request-container .left .field {
+    margin-top: 0.8em;
+  }
+  .main-container .request-container .left .field label {
+    display: block;
+    margin-bottom: 0.2em;
+  }
+  .main-container .request-container .left .field input {
+    height: 24px;
+    width: 90%;
+    color: white;
+    border: 0;
+    margin: 0;
+    padding: 6px 4px 4px 7px;
+    min-width: 0;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+    letter-spacing: inherit;
+  }
+  .main-container .request-container .left button {
+    margin-top: 2em;
+    padding: 6px 10px;
+  }
+  .main-container .request-container .right {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+    background: url(../image/recording.png) no-repeat;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main-container .request-container {
+    display: blcok;
+  }
+  .main-container .request-container #field_set {
+    border: none;
+    padding: 0;
+  }
+  .main-container .request-container .left {
+    width: 100%;
+    display: block;
+    padding: 1em;
+  }
+  .main-container .request-container .left .field {
+    margin-top: 0.8em;
+  }
+  .main-container .request-container .left .field label {
+    display: block;
+    margin-bottom: 0.2em;
+  }
+  .main-container .request-container .left .field input {
+    height: 24px;
+    width: 90%;
+    color: white;
+    border: 0;
+    margin: 0;
+    padding: 6px 4px 4px 7px;
+    min-width: 0;
+    -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+    letter-spacing: inherit;
+  }
+  .main-container .request-container .left button {
+    margin-top: 2em;
+    padding: 6px 10px;
+  }
+  .main-container .request-container .right {
+    width: 100%;
+    display: none;
+  }
+}
+
+.main-container #request-form-closed {
+  background: url(../image/not-yet.png) no-repeat;
+}
+
+.main-container #request-form-closed h2 {
+  margin: auto;
+  color: #F9F9F1;
+}
+
+.main-container #request-form-success {
+  background: url(../image/success.png) no-repeat;
+}
+
+.main-container #request-form-success h2 {
+  margin: auto;
+  color: #F9F9F1;
+}
+
+#footer {
+  margin-top: 8em;
+  width: 100%;
+  height: 40px;
   text-align: center;
 }
 /*# sourceMappingURL=main.css.map */
