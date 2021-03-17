@@ -167,7 +167,6 @@ $(document).ready(function() {
         send_request_status($(this).is(":checked"));
     });
     
-    
     loadVideo();
     load_requests();
 
