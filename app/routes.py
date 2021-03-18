@@ -47,6 +47,8 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('dj')
         return redirect(next_page)
+    else:
+        flash(form.errors)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
@@ -70,7 +72,9 @@ def register():
             print_exc()
             db.session.rollback()
         return redirect(url_for('login'))
-    app.logger.debug('validate_on_submit() returned false')
+    else:
+        app.logger.debug('validate_on_submit() returned false')
+        flash(form.errors)
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/search_youtube', methods=['GET', 'POST'])
