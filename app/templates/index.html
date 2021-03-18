@@ -14,17 +14,18 @@
 
 <body>
     <nav>
-        <img src="{{url_for('.static', filename='./image/logo.png')}}" alt="">
+        <a href="/"><img src="{{url_for('.static', filename='./image/logo.png')}}" alt=""></a>
         <h1>온화카페 DJ 부스</h1>
+        <ul>
+            <li>
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}">출근</a>
+                {% else %}
+                <a href="{{ url_for('logout') }}">퇴근</a>
+                {% endif %}
+            </li>
+        </ul>    
     </nav>
-    <div>
-        <a href="{{ url_for('dj') }}">Home</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </div>
     <div class="main-container">
         <div class="player-container" id="player">
         </div>
@@ -50,16 +51,16 @@
         </div>
     </div>
     <div class="bottom-container">
-        <div class="requests-container">
-            <label class="switch">
-                <input type="checkbox" id="request_open_checkbox"><br>
-                <input type="text" id="request_open_textbox">
-            </label>
-            <ul id="requests">
-            </ul>
-        </div>
         <div class="bottom-content">
             <h2>신청곡 추가</h2>
+            <div class="requests-container">
+                <label class="switch">
+                    <input type="checkbox" id="request_open_checkbox"><br>
+                    <div id="request_open_textbox"></div>
+                </label>
+                <ul id="requests">
+                </ul>
+            </div>
             <div class="search">
                 <!-- Search Form -->
                 <form id='search_youtube' action="/search_youtube" method="post" novalidate>

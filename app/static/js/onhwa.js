@@ -126,12 +126,12 @@ function check_open_for_request(){
             $('#field_set').attr('disabled', false);
             //index.html
             $('#request_open_checkbox').attr('checked', true);
-            $('#request_open_textbox').val('requests opened');
+            $('#request_open_textbox').html('신청곡 받는중');
         }
         else{
             //iondex.html
             $('#request_open_checkbox').attr('checked',false);
-            $('#request_open_textbox').val('requests closed');
+            $('#request_open_textbox').html('신청곡 마감');
         }
     });
 }
@@ -160,9 +160,9 @@ $(document).ready(function() {
       
     $('#request_open_checkbox').change(function(){
         if($(this).is(":checked")) {
-            $('#request_open_textbox').val('requests opened');
+            $('#request_open_textbox').html('신청곡 받는중');
         } else{
-            $('#request_open_textbox').val('requests closed');
+            $('#request_open_textbox').html('신청곡 마감');
         }
         send_request_status($(this).is(":checked"));
     });
