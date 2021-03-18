@@ -1,3 +1,5 @@
+var url_sse; // SSE
+
 function add_song(video_id, video_title) {
     edit_playlist(video_id, video_title, 'add');
 }
@@ -25,7 +27,7 @@ function update_playlist(playlist) {
     video_ids = [];
     $.each(playlist.data, function(index, value) {
         video_ids.push(value['video_id']);
-        $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='http://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>" + value['video_title'] + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
+        $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>" + value['video_title'] + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
     });
     status_update();
 }
@@ -120,7 +122,7 @@ function send_request_status(is_request_open){
 
 function check_open_for_request(){
     $.get('/check_open_for_request', function(requests){
-        console.log(requests.data);
+        //console.log(requests.data);
         if (requests.data){
             //main.html
             $('#field_set').attr('disabled', false);
@@ -135,6 +137,8 @@ function check_open_for_request(){
         }
     });
 }
+
+
 
 $(document).ready(function() {
     init_player();
@@ -169,7 +173,9 @@ $(document).ready(function() {
     
     loadVideo();
     load_requests();
-
+    //if ($('#playlist').length>0){ // is there a better way to distiguish parent html files? 
+       
+    //}
     /*
     var source = new EventSource("{{ url_for('sse.stream') }}");
     source.addEventListener('greeting', function(event) {

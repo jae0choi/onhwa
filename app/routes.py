@@ -6,7 +6,8 @@ from flask import flash
 from flask_login import current_user, login_user
 from flask_login import logout_user
 from flask_login import login_required
-#from flask_sse import sse
+from flask_sse import sse
+
 from werkzeug.urls import url_parse
 
 from app import app
@@ -16,6 +17,7 @@ from app.yt import youtube_search, export_playlist
 from app.models import Video, Request, User, ServerSetting
 
 from distutils.util import strtobool
+from traceback import print_exc
 
 @app.route('/', methods=['GET'])
 def main():
@@ -37,6 +39,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
+            app.logger.info('Invalid username or password')
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
@@ -44,6 +47,8 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('dj')
         return redirect(next_page)
+    else:
+        flash(form.errors)
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
@@ -59,10 +64,17 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        try:
+            db.session.add(user)
+            db.session.commit()
+            flash('Congratulations, you are now a registered user!')
+        except:
+            print_exc()
+            db.session.rollback()
         return redirect(url_for('login'))
+    else:
+        app.logger.debug('validate_on_submit() returned false')
+        flash(form.errors)
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/search_youtube', methods=['GET', 'POST'])
@@ -139,6 +151,8 @@ def request_song():
         db.session.commit()
     except:
         db.session.rollback()
+
+    sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
     return redirect(url_for('main'))
 
 @app.route('/get_requests', methods=['GET'])
