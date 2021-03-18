@@ -308,4 +308,11 @@ nav h1 {
   border-radius: 3px;
   vertical-align: bottom;
 }
+
+.bottom-container .requests .pending-request {
+  width: 200px;
+  height: 120px;
+  background-color: #F9F9F1;
+  margin-right: 1.5em;
+}
 /*# sourceMappingURL=style.css.map */
