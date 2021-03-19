@@ -65,7 +65,7 @@
                     {{ form.hidden_tag() }}
                     <!-- protection against CSRF attack -->
                     <!-- {{ form.query.label }}<br> -->
-                    {{ form.query(size=24, placeholder="노래 검색") }}
+                    {{ form.query(size=24, placeholder="가수이름 노래제목") }}
                     <button type="submit" id='search_submit'>
                         <img class="icon search" src="./static/image/search.svg">
                     </button>
@@ -73,6 +73,7 @@
                 </form>
             </div>
             <div class="requests-container">
+                <p>검색하거나 아래 신청곡 카드 눌러서 영상 찾은 후, 플레이리스트에 넣기</p>
                 <ul id="requests">
                 </ul>
                 <script>
@@ -94,12 +95,15 @@
                 request_sse();
                 </script>
             </div>
-            <div class="search-result">
-                <div class="result-song" id='search_result'>
-                </div>
-            </div>
         </div>
     </div>
+    <div id="search-result-container">
+        <div class="result-content">
+            <h2>검색 결과</h2>
+            <div id='search_result'></div>
+        </div>
+    </div>
+
     <footer></footer>
  
 </body>
