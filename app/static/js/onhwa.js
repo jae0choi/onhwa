@@ -92,9 +92,6 @@ function remove_request(index) {
 }
 
 function search_request(artist, title) {
-    console.log(artist);
-    console.log(title);
-    console.log(artist + ' ' + title);
     search_youtube(artist + ' ' + title);
 }
 
