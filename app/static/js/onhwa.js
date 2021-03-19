@@ -79,7 +79,7 @@ function load_requests() {
             var requester = request['requester'];
             var title = request['title'];
             var artist = request['artist'];
-            $('#requests').append("<li class='pending-request'><p class='requester'>" + requester + "</p><p class='artist'>" + artist + "</p><p class='title'>" + title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
+            $('#requests').append("<li class='pending-request' onclick='search_request(\"" + artist + ", " + title + "\")'><p class='requester'>" + requester + "</p><p class='artist'>" + artist + "</p><p class='title'>" + title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
             // call remove_request(index) to remove one request 
             // call search_request(artist, title) to search
         });
@@ -97,6 +97,7 @@ function search_request(artist, title) {
 
 function search_youtube(query) {
     console.log('search youtube');
+    
     var dest_elem = $('#search_result');
     $(dest_elem).text('loading...');
     $.post('/search_youtube', {
@@ -122,18 +123,24 @@ function send_request_status(is_request_open){
 
 function check_open_for_request(){
     $.get('/check_open_for_request', function(requests){
-        //console.log(requests.data);
+        // console.log(requests.data);
         if (requests.data){
             //main.html
-            $('#field_set').attr('disabled', false);
+            // $('#field_set').attr('disabled', false);
+            $('#request-form-open').removeClass('hidden');
+            $('#request-form-closed').addClass('hidden');
+
             //index.html
             $('#request_open_checkbox').attr('checked', true);
-            $('#request_open_textbox').html('신청곡 받는중');
+            // $('#request_open_textbox').html('신청곡 받는중');
         }
         else{
+            //main.html
+            $('#request-form-open').addClass('hidden');
+            $('#request-form-closed').removeClass('hidden');
             //iondex.html
             $('#request_open_checkbox').attr('checked',false);
-            $('#request_open_textbox').html('신청곡 마감');
+            // $('#request_open_textbox').html('신청곡 마감');
         }
     });
 }
@@ -162,14 +169,14 @@ $(document).ready(function() {
     });
     check_open_for_request();    
       
-    $('#request_open_checkbox').change(function(){
-        if($(this).is(":checked")) {
-            $('#request_open_textbox').html('신청곡 받는중');
-        } else{
-            $('#request_open_textbox').html('신청곡 마감');
-        }
-        send_request_status($(this).is(":checked"));
-    });
+    // $('#request_open_checkbox').change(function(){
+    //     if($(this).is(":checked")) {
+    //         $('#request_open_textbox').html('신청곡 받는중');
+    //     } else{
+    //         $('#request_open_textbox').html('신청곡 마감');
+    //     }
+    //     send_request_status($(this).is(":checked"));
+    // });
     
     loadVideo();
     load_requests();

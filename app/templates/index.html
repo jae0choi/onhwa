@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
-    <title>Onhwa cafe</title>
+    <title>온화카페</title>
+    <link rel="icon" type="image/png" href="{{url_for('.static', filename='image/favicon.png')}}">
     <script src="{{url_for('.static', filename='js/jquery-3.6.0.js')}}"></script>
     <script src="{{url_for('.static', filename='js/jquery-ui.min.js')}}"></script>
     <script src="{{url_for('.static', filename='js/ytplayer.js')}}"></script>
@@ -19,10 +20,11 @@
         <ul>
             <li>
                 {% if current_user.is_anonymous %}
-                <a href="{{ url_for('login') }}">출근</a>
+                <a href="{{ url_for('login') }}"><button>출근</button></a>
                 {% else %}
-                <a href="{{ url_for('logout') }}">퇴근</a>
+                <a href="{{ url_for('logout') }}"><button>퇴근하자!</button></a>
                 {% endif %}
+
             </li>
         </ul>    
     </nav>
@@ -51,34 +53,12 @@
         </div>
     </div>
     <div class="bottom-container">
-        <div class="requests-container">
-            <label class="switch">
-                <input type="checkbox" id="request_open_checkbox"><br>
-                <input type="text" id="request_open_textbox">
-            </label>
-            <ul id="requests">
-            </ul>
-            <script>
-            url_sse="{{ url_for('sse.stream') }}";
-            function request_sse(){
-                console.log(url_sse);
-                var source = new EventSource(url_sse);
-                source.addEventListener('new_request', function(event) {
-                    var data = JSON.parse(event.data);
-                    console.log("The server says " + data.requester + data.artist + data.title);
-                    // index = length of requests 
-                    // $('#requests').append("<li class='pending-request'><p class='requester'>" + data.requester + "</p><p class='artist'>" + data.artist + "</p><p class='title'>" + data.title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
-                    load_requests(); // change to above
-                }, false);
-                source.addEventListener('error', function(event) {
-                    alert("Failed to connect to event stream. Is Redis running?");
-                }, false);
-            }
-            request_sse();
-            </script>
-        </div>
         <div class="bottom-content">
-            <h2>신청곡 추가</h2>
+            <h2>신청곡</h2>
+            <div class="toggle-button">
+                <input class="tgl tgl-skewed" id="request_open_checkbox" type="checkbox"/>
+                <label class="tgl-btn" data-tg-off="마감" data-tg-on="받는중" for="request_open_checkbox"></label>
+            </div>
             <div class="search">
                 <!-- Search Form -->
                 <form id='search_youtube' action="/search_youtube" method="post" novalidate>
@@ -91,6 +71,28 @@
                     </button>
                     <!-- <input type="submit" value="검색" id='search'>  -->
                 </form>
+            </div>
+            <div class="requests-container">
+                <ul id="requests">
+                </ul>
+                <script>
+                url_sse="{{ url_for('sse.stream') }}";
+                function request_sse(){
+                    console.log(url_sse);
+                    var source = new EventSource(url_sse);
+                    source.addEventListener('new_request', function(event) {
+                        var data = JSON.parse(event.data);
+                        console.log("The server says " + data.requester + data.artist + data.title);
+                        // index = length of requests 
+                        // $('#requests').append("<li class='pending-request'><p class='requester'>" + data.requester + "</p><p class='artist'>" + data.artist + "</p><p class='title'>" + data.title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
+                        load_requests(); // change to above
+                    }, false);
+                    source.addEventListener('error', function(event) {
+                        alert("Failed to connect to event stream. Is Redis running?");
+                    }, false);
+                }
+                request_sse();
+                </script>
             </div>
             <div class="search-result">
                 <div class="result-song" id='search_result'>

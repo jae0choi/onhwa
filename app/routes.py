@@ -151,9 +151,12 @@ def request_song():
         db.session.commit()
     except:
         db.session.rollback()
-
+    
+    app.logger.debug('here')
     sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
-    return redirect(url_for('main'))
+    return render_template('main.html', submitted=True)
+    # redirect(url_for('main'))
+    
 
 @app.route('/get_requests', methods=['GET'])
 def get_requests():
