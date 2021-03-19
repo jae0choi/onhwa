@@ -1,4 +1,5 @@
 var url_sse; // SSE
+var array_requests = [];
 
 function add_song(video_id, video_title, artist, title, requester) {
     edit_playlist(video_id, video_title, artist, title, requester, 'add');
@@ -91,18 +92,27 @@ function load_requests() {
             $('#requests').append("<li class='pending-request request-form-"+ index + "'><div class='request-left' onclick='search_request(\"" + artist + "\", \"" + title + "\", \"" + requester + "\")'><p class='requester'>" + requester + "</p><span>님이 신청하신 </span><br><p class='artist'>" + artist + "</p><span>의 </span><p class='title'>" + title + "</p></div><div class='request-right'><img class='icon trash2' src='static/image/trash.svg' onclick='remove_request(" + index + ");' /></li></div>");
             // call remove_request(index) to remove one request 
             // call search_request(artist, title) to search
-        });
+            array_requests.push({'title': title, 'artist': artist, 'requester': requester});
+        })
     });
 }
 
 function remove_request(index) {
     console.log('remove_request', index);
     var selector = '.request-form-' + index;
-    $(selector).remove();
-
+    req = array_requests[index];
+    console.log(req);
+    $.post('/remove_request', {
+        title: req.title,
+        artist: req.artist,
+        requester: req.requester
+    }).done(function(response){
+        array_requests.splice(index,1);
+        $(selector).remove();    
+    }).fail(function(){
+        console.log('Remove request failed');
+    });
     //remove one request with index 'index' from db
-
-    
 }
 
 function search_request(artist, title, requester) {

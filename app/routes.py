@@ -173,6 +173,19 @@ def get_requests():
     app.logger.debug(requests)
     return jsonify(data=requests)
 
+@app.route('/remove_request', methods=['GET', 'POST'])
+def remove_request():
+    requester = request.form['requester']
+    title = request.form['title']
+    artist = request.form['artist']
+    Request.query.filter(Request.artist == artist, Request.title==title, Request.requester==requester).delete()
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback() 
+    requests = [req.get_dict() for req in Request.query.all()]
+    return jsonify(data=requests)
+
 @app.route('/check_open_for_request', methods=['GET'])
 def check_open_for_request():
     # initialize server setting
