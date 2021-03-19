@@ -79,7 +79,7 @@ function load_requests() {
             var requester = request['requester'];
             var title = request['title'];
             var artist = request['artist'];
-            $('#requests').append("<li class='pending-request' onclick='search_request(\"" + artist + ", " + title + "\")'><p class='requester'>" + requester + "</p><p class='artist'>" + artist + "</p><p class='title'>" + title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
+            $('#requests').append("<li class='pending-request' onclick='search_request(\"" + artist + "\", \"" + title + "\")'><p class='requester'>" + requester + "</p><p class='artist'>" + artist + "</p><p class='title'>" + title + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_request(" + index + ")'/></li>");
             // call remove_request(index) to remove one request 
             // call search_request(artist, title) to search
         });
@@ -92,11 +92,15 @@ function remove_request(index) {
 }
 
 function search_request(artist, title) {
+    console.log(artist);
+    console.log(title);
+    console.log(artist + ' ' + title);
     search_youtube(artist + ' ' + title);
 }
 
 function search_youtube(query) {
     console.log('search youtube');
+    console.log(query);
     
     var dest_elem = $('#search_result');
     $(dest_elem).text('loading...');

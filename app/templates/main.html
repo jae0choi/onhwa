@@ -42,14 +42,14 @@
                             <div class="field" id="singer">
                                 <label>가수</label>
                                 {{ form.artist(size=24, placeholder="Artist") }}
-                                % for error in form.artist.errors %}
+                                {% for error in form.artist.errors %}
                                 <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}    
                             </div>
                             <div class="field" id="song-title">
                                 <label>노래이름</label>
                                 {{ form.title(size=24, placeholder="Title") }}   
-                                % for error in form.title.errors %}
+                                {% for error in form.title.errors %}
                                 <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %} 
                             </div>
