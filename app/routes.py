@@ -141,19 +141,24 @@ def export_pl():
 @app.route('/request_song', methods=['GET', 'POST'])
 def request_song():
     form = RequestForm()
-    artist = form.artist.data
-    title = form.title.data
-    requester = form.requester.data
-    app.logger.debug('Request received %s - %s - %s', requester, artist, title)
-    request = Request(requester=requester, artist = artist, title = title)
-    try:    
-        db.session.add(request)
-        db.session.commit()
-    except:
-        db.session.rollback()
+    if form.validate_on_submit():
+        artist = form.artist.data
+        title = form.title.data
+        requester = form.requester.data
+        app.logger.debug('Request received %s - %s - %s', requester, artist, title)
+        request = Request(requester=requester, artist = artist, title = title)
+        try:    
+            db.session.add(request)
+            db.session.commit()
+        except:
+            db.session.rollback()
 
-    sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
-    return redirect(url_for('main'))
+        sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
+    else:
+        app.logger.debug('validate_on_submit() returned false')
+        flash(form.errors)
+    return render_template('main.html',  form=form)
+    #return redirect(url_for('main', form=form))
 
 @app.route('/get_requests', methods=['GET'])
 def get_requests():

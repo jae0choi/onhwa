@@ -8,9 +8,9 @@ class Form(FlaskForm):
     #submit = SubmitField('Go!')
     
 class RequestForm(FlaskForm):
-    artist = StringField('Artist')
-    title = StringField('Title')
-    requester = StringField('Requester')
+    artist = StringField('Artist', validators=[DataRequired(message="아티스트 정보를 입력해주세요")])
+    title = StringField('Title', validators=[DataRequired(message="제목을 입력해주세요")])
+    requester = StringField('Requester', validators=[DataRequired(message="신청자 정보를 남겨주세요")])
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])

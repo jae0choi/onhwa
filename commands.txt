@@ -17,8 +17,18 @@ sudo supervisorctl reload
 #nginx reload
 sudo service nginx reload
 
+#openresty service control
+sudo service openresty <start | stop | restart | reload | .. >
+
+#openresty path conf/ and html/
+/usr/local/openresty/nginx/
+
 #Deploying Application Updates
 git pull
 sudo supervisorctl stop onhwa
 flask db upgrade
 sudo supervisorctl start onhwa
+
+#redis install on Mac
+brew install redis
+brew services start redis
