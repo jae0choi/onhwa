@@ -29,11 +29,13 @@ function edit_playlist(video_id, video_title, artist, title, requester, mode) {
 function update_playlist(playlist) {
     $('#playlist').html('')
     video_ids = [];
+    console.log(playlist);
     $.each(playlist.data, function(index, value) {
         video_ids.push(value['video_id']);
+
         console.log(value['artist']);
 
-        if(value['artist']!=null){
+        if(value['artist']){
             $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='requester'>" + value['requester'] + "</p><p class='artist'>" + value['artist'] + "</p><p class='title'>" + value['title'] + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
         }else{
             $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><p class='title'>" + value['video_title'] + "</p><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
@@ -169,16 +171,13 @@ function send_request_status(is_request_open){
 
 function check_open_for_request(){
     $.get('/check_open_for_request', function(requests){
-        // console.log(requests.data);
         if (requests.data){
             //main.html
-            // $('#field_set').attr('disabled', false);
             $('#request-form-open').removeClass('hidden');
             $('#request-form-closed').addClass('hidden');
 
             //index.html
             $('#request_open_checkbox').attr('checked', true);
-            // $('#request_open_textbox').html('신청곡 받는중');
         }
         else{
             //main.html
@@ -186,7 +185,6 @@ function check_open_for_request(){
             $('#request-form-closed').removeClass('hidden');
             //iondex.html
             $('#request_open_checkbox').attr('checked',false);
-            // $('#request_open_textbox').html('신청곡 마감');
         }
     });
 }
@@ -215,14 +213,14 @@ $(document).ready(function() {
     });
     check_open_for_request();    
       
-    // $('#request_open_checkbox').change(function(){
-    //     if($(this).is(":checked")) {
-    //         $('#request_open_textbox').html('신청곡 받는중');
-    //     } else{
-    //         $('#request_open_textbox').html('신청곡 마감');
-    //     }
-    //     send_request_status($(this).is(":checked"));
-    // });
+    $('#request_open_checkbox').change(function(){
+        // if($(this).is(":checked")) {
+        //     $('#request_open_textbox').html('신청곡 받는중');
+        // } else{
+        //     $('#request_open_textbox').html('신청곡 마감');
+        // }
+        send_request_status($(this).is(":checked"));
+    });
     
     loadVideo();
     load_requests();

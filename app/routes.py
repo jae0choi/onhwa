@@ -92,16 +92,16 @@ def load_playlist():
 def edit_playlist():
     mode = request.form['mode']
     vid = request.form['video_id']
-    song = request.form['title']
-    artist = request.form['artist']
-    requester = request.form['requester']
-    app.logger.debug(song, artist)
 
     if mode == 'add':
         video_title = request.form['video_title']
         #playlist.append({'video_id': vid, 'video_title': video_title})
         video = Video(video_id=vid, title=video_title)
+        # video.song = request.form['title']
+        # video.artist = request.form['artist']
+        # video.requester = request.form['requester']
         db.session.add(video)
+
     elif mode == 'remove':
         #playlist = [video for video in playlist if video['video_id'] != vid]
         video = Video.query.filter(Video.video_id == vid).delete()
@@ -109,8 +109,9 @@ def edit_playlist():
         db.session.commit()
     except:
         db.session.rollback()
-
-    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'artist': artist, 'title': song, 'requester': requester} for video in Video.query.all()]
+    
+    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    
     app.logger.debug('Current playlist')
     app.logger.debug(playlist)
     return jsonify(data=playlist)
@@ -146,6 +147,7 @@ def export_pl():
 @app.route('/request_song', methods=['GET', 'POST'])
 def request_song():
     form = RequestForm()
+    
     if form.validate_on_submit():
         artist = form.artist.data
         title = form.title.data
@@ -162,7 +164,7 @@ def request_song():
     else:
         app.logger.debug('validate_on_submit() returned false')
         flash(form.errors)
-    return render_template('main.html',  form=form)
+    return render_template('main.html',  form=form, submitted = True)
     #return redirect(url_for('main', form=form))
 
 
