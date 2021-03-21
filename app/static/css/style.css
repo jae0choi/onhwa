@@ -29,6 +29,12 @@ html, body {
   color: #3B3B39;
 }
 
+a,
+a:visited,
+a:hover, a:active, a:focus {
+  color: #3B3B39;
+}
+
 .icon {
   width: 1em;
   cursor: pointer;
@@ -216,6 +222,7 @@ nav ul button {
   }
   .main-container .export {
     display: inline-block;
+    vertical-align: middle;
   }
 }
 
@@ -259,12 +266,14 @@ nav ul button {
 #playlist .info-container .requester-info {
   display: block;
   padding-left: 20px;
-  font-size: 1.2em;
+  font-size: 16px;
+  margin-top: 12px;
 }
 
 #playlist .info-container .requester-info p {
   display: inline-block;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 #playlist .info-container .requester-info .requester,

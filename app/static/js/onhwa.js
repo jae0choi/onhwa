@@ -36,7 +36,7 @@ function update_playlist(playlist) {
         console.log(value['artist']);
 
         if(value['artist']){
-            $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><div class='info-container'><div class='original-info'><p class='title'>[" + value['video_title'] + "]</p></div><div class='requester-info'><p class='requester'>" + value['requester'] + "🙋🏻‍♀️ </p><p class='artist'>" + value['artist'] + "</p>의 <p class='song-title'>" + value['song_title'] + "</p></div></div><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
+            $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><div class='info-container'><div class='original-info'><p class='title'>[" + value['video_title'] + "]</p></div><div class='requester-info'><p class='requester'>" + value['requester'] + "🙋🏻 </p><p class='artist'>" + value['artist'] + "</p>의 <p class='song-title'>" + value['song_title'] + "</p></div></div><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
         }else{
             $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><div class='info-container'><div class='original-info'><p class='title'>[" + value['video_title'] + "]</p></div></div><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
         }
@@ -152,7 +152,8 @@ function search_youtube(query, title, requester) {
 
         $(dest_elem).html('');
         $.each(response.data, function(index, value) {
-            $(dest_elem).append("<div class='searched-song'><iframe id='ytplayer' class='player-thumbnail' type='text/html', width='280' height='180' src='https://www.youtube.com/embed/" + value['video_id'] + "' frameborder='0'></iframe><p>" + value['video_title'] + "</p><button type='button' onclick='add_song(\"" + value['video_id'] + "\", \"" + value['video_title'] + "\", \"" + artist + "\", \"" + title + "\", \"" + requester + "\")'><img class='icon add' src='./static/image/plus.svg'/>플레이리스트에 추가</button></div>");
+            
+            $(dest_elem).append("<div class='searched-song'><iframe id='ytplayer' class='player-thumbnail' type='text/html', width='280' height='180' src='https://www.youtube.com/embed/" + value['video_id'] + "' frameborder='0'></iframe><p>" + value['video_title'] + "</p><button type='button' onclick='add_song(\"" + value['video_id'] + "\", \"" + value['video_title'].replace("/\"/gi","\'") + "\", \"" + artist + "\", \"" + title + "\", \"" + requester + "\")'><img class='icon add' src='./static/image/plus.svg'/>플레이리스트에 추가</button></div>");
         });
         
     }).fail(function() {
