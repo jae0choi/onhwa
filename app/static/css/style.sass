@@ -35,6 +35,11 @@ html, body
     height: 100%
     color: $font-color
 
+a, 
+a:visited,
+a:hover, a:active, a:focus
+    color: $font-color
+
 .icon
     width: 1em
     cursor: pointer 
@@ -184,6 +189,7 @@ nav
             display: inline-block
         .export
             display: inline-block
+            vertical-align: middle
 
     @media screen and (max-width: $small) 
         max-width: 100%
@@ -215,11 +221,13 @@ nav
         .requester-info
             display: block
             padding-left: 20px
-            font-size: 1.2em
+            font-size: 16px
+            margin-top: 12px
 
             p
                 display: inline-block
                 margin-bottom: 0
+                margin-top: 0
                 
             .requester,
             .artist,
