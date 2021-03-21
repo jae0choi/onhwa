@@ -196,7 +196,7 @@ html, body {
 
 @media screen and (max-width: 480px) {
   .main-container #request-container #request-form-open {
-    display: blcok;
+    display: block;
   }
   .main-container #request-container #request-form-open #field_set {
     border: none;
