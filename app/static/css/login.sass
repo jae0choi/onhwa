@@ -1,0 +1,119 @@
+@font-face
+    font-family: BMDOHYEON
+    src: url(./font/BMDOHYEON.woff) format('woff')
+    
+$base-color: #F9F9F1
+$second-color: #DBE3CC
+$tertiary-color: #B5C7AD
+$font-color: #3B3B39
+
+$small: 480px
+
+h1 
+    font-size: 4em
+    margin-top: 0
+    margin-bottom: 0
+    
+h2
+    font-size: 2em
+    margin-top: 0
+    margin-bottom: 0
+    
+html, body
+    font-family: BMDOHYEON, sans-serif
+    margin: 0 auto
+    background-color: $base-color
+    height: 100%
+    color: $font-color
+    max-width: 1200px
+    width: 100%
+    text-align: center
+    margin: 1em auto
+    
+
+    
+#sign-in-container
+    width: 100%
+    max-width: 600px
+    mix-width: 400px
+    margin: 0 auto
+    text-align: left
+    background-color: $second-color
+    height: 360px
+    color: $font-color
+
+    #signin-form
+        height: 360px
+        @media screen and (min-width: $small)         
+            display: flex
+
+            #field_set
+                border: none
+                padding: 0
+
+            .left
+                width: 50%
+                display: inline-block
+                padding: 1em
+
+                .field
+                    margin-top: 0.8em
+                    
+                    label
+                        display: block
+                        margin-bottom: 0.2em
+                        
+                    input
+                        height: 24px
+                        width: 90%
+                        border: 0
+                        margin: 0
+                        padding: 6px 4px 4px 7px
+                        min-width: 0
+                        box-sizing: content-box
+                        letter-spacing: inherit
+
+                button
+                    margin-top: 2em
+                    padding: 6px 10px
+
+            .right
+                width: 50%
+                height: 100%
+                display: inline-block
+                background: url(../image/badge.png) no-repeat
+                
+        @media screen and (max-width: $small)
+            display: blcok
+
+            #field_set
+                border: none
+                padding: 0
+
+            .left
+                width: 100%
+                display: block
+                padding: 1em
+                .field
+                    margin-top: 0.8em
+                    
+                    label
+                        display: block
+                        margin-bottom: 0.2em
+                        
+                    input
+                        height: 24px
+                        width: 90%
+                        border: 0
+                        margin: 0
+                        padding: 6px 4px 4px 7px
+                        min-width: 0
+                        box-sizing: content-box
+                        letter-spacing: inherit
+                button
+                    margin-top: 2em
+                    padding: 6px 10px
+
+            .right
+                width: 100%
+                display: none
