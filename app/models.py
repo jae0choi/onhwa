@@ -7,9 +7,13 @@ class Video(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     video_id = db.Column(db.String(20), index=True, unique=True)
     title = db.Column(db.String(256), index=True)
+    
+    artist = db.Column(db.String(256), index=True)
+    song_title = db.Column(db.String(256), index=True)
+    requester = db.Column(db.String(256), index=True)
 
     def __repr__(self):
-        return '<{} : {}>'.format(self.video_id, self.title)
+        return '<{} : {}>'.format(self.video_id, self.title, self.artist, self.song_title, self.requester)
     
 class Request(db.Model):
     id = db.Column(db.Integer, primary_key = True)

@@ -85,7 +85,7 @@ def search_youtube():
 
 @app.route('/load_playlist', methods=['GET'])
 def load_playlist():
-    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
     return jsonify(data=playlist)
 
 @app.route('/edit_playlist', methods=['GET', 'POST'])
@@ -96,10 +96,11 @@ def edit_playlist():
     if mode == 'add':
         video_title = request.form['video_title']
         #playlist.append({'video_id': vid, 'video_title': video_title})
-        video = Video(video_id=vid, title=video_title)
-        # video.song = request.form['title']
-        # video.artist = request.form['artist']
-        # video.requester = request.form['requester']
+        video_song = request.form['title']
+        video_artist = request.form['artist']
+        video_requester = request.form['requester']
+
+        video = Video(video_id=vid, title=video_title, song_title=video_song, requester=video_requester, artist=video_artist)
         db.session.add(video)
 
     elif mode == 'remove':
@@ -110,7 +111,7 @@ def edit_playlist():
     except:
         db.session.rollback()
     
-    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
     
     app.logger.debug('Current playlist')
     app.logger.debug(playlist)
@@ -119,7 +120,7 @@ def edit_playlist():
 @app.route('/reorder_playlist', methods=['GET', 'POST'])
 def reorder_playlist():
     video_ids = request.form.getlist('video_ids[]')
-    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
     new_playlist = [list(filter(lambda v: v['video_id'] == video_id, playlist))[0] for video_id in video_ids]
     
     try:

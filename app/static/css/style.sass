@@ -6,6 +6,8 @@ $base-color: #F9F9F1
 $second-color: #DBE3CC
 $tertiary-color: #B5C7AD
 $font-color: #3B3B39
+$font-color2: #677A5E
+$font-color3: #878783
 $highlight-color: #FAFAD9
 
 
@@ -110,9 +112,13 @@ nav
         .thumbnail
             height: 90px
         .title
-            padding-left: 1.2em
+            padding-left: 20px
             width: 260px
-        
+            font-size: 14px
+            font-weight: 500
+            line-height: 1em
+            margin-bottom: 0
+            
         &.selected
             background-color: $highlight-color 
             &:hover
@@ -203,6 +209,29 @@ nav
 #playlist
     margin-top: 1em
 
+    .info-container
+        width: 100%
+
+        .requester-info
+            display: block
+            padding-left: 20px
+            font-size: 1.2em
+
+            p
+                display: inline-block
+                margin-bottom: 0
+                
+            .requester,
+            .artist,
+            .song-title
+                color: $font-color2
+                
+
+        .original-info
+            .title
+                color: $font-color3
+
+
 
 .bottom-container
     width: 100%
@@ -264,7 +293,7 @@ nav
                 width: 10%
             p
                 display: inline-block
-                color: $tertiary-color
+                color: $font-color2
                 font-size: 1.3em
                 line-height: 0em
             span

@@ -119,8 +119,12 @@ nav ul button {
 }
 
 .main-container .added-song .title {
-  padding-left: 1.2em;
+  padding-left: 20px;
   width: 260px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1em;
+  margin-bottom: 0;
 }
 
 .main-container .added-song.selected {
@@ -248,6 +252,31 @@ nav ul button {
   margin-top: 1em;
 }
 
+#playlist .info-container {
+  width: 100%;
+}
+
+#playlist .info-container .requester-info {
+  display: block;
+  padding-left: 20px;
+  font-size: 1.2em;
+}
+
+#playlist .info-container .requester-info p {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+#playlist .info-container .requester-info .requester,
+#playlist .info-container .requester-info .artist,
+#playlist .info-container .requester-info .song-title {
+  color: #677A5E;
+}
+
+#playlist .info-container .original-info .title {
+  color: #878783;
+}
+
 .bottom-container {
   width: 100%;
   background-color: #DBE3CC;
@@ -324,7 +353,7 @@ nav ul button {
 
 .bottom-container #requests .pending-request p {
   display: inline-block;
-  color: #B5C7AD;
+  color: #677A5E;
   font-size: 1.3em;
   line-height: 0em;
 }
