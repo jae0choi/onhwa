@@ -109,101 +109,126 @@ html, body
                     font-family: BMDOHYEON, sans-serif
                     margin-top: 0.5em
     
-    .request-container
+    #request-container
         width: 100%
         max-width: 600px
         mix-width: 400px
         margin: 0 auto
         text-align: left
         background-color: $second-color
+        height: 360px
+        color: $font-color
 
-        @media screen and (min-width: $small) 
-            display: flex
+        #request-form-open
             height: 360px
+            @media screen and (min-width: $small)         
+                display: flex
 
-            #field_set
-                border: none
-                padding: 0
+                #field_set
+                    border: none
+                    padding: 0
 
-            .left
-                width: 50%
-                display: inline-block
-                padding: 1em
+                .left
+                    width: 50%
+                    display: inline-block
+                    padding: 1em
 
-                .field
-                    margin-top: 0.8em
-                    
-                    label
-                        display: block
-                        margin-bottom: 0.2em
+                    .field
+                        margin-top: 0.8em
                         
-                    input
-                        height: 24px
-                        width: 90%
-                        color: white
-                        border: 0
-                        margin: 0
-                        padding: 6px 4px 4px 7px
-                        min-width: 0
-                        box-sizing: content-box
-                        letter-spacing: inherit
+                        label
+                            display: block
+                            margin-bottom: 0.2em
+                            
+                        input
+                            height: 24px
+                            width: 90%
+                            border: 0
+                            margin: 0
+                            padding: 6px 4px 4px 7px
+                            min-width: 0
+                            box-sizing: content-box
+                            letter-spacing: inherit
+
+                    button
+                        margin-top: 2em
+                        padding: 6px 10px
+
+                .right
+                    width: 50%
+                    height: 100%
+                    display: inline-block
+                    background: url(../image/recording.png) no-repeat
+                    
+            @media screen and (max-width: $small)
+                display: blcok
+
+                #field_set
+                    border: none
+                    padding: 0
+
+                .left
+                    width: 100%
+                    display: block
+                    padding: 1em
+                    .field
+                        margin-top: 0.8em
+                        
+                        label
+                            display: block
+                            margin-bottom: 0.2em
+                            
+                        input
+                            height: 24px
+                            width: 90%
+                            border: 0
+                            margin: 0
+                            padding: 6px 4px 4px 7px
+                            min-width: 0
+                            box-sizing: content-box
+                            letter-spacing: inherit
+                    button
+                        margin-top: 2em
+                        padding: 6px 10px
+
+                .right
+                    width: 100%
+                    display: none
+
+        #request-form-closed
+            width: 100%
+            max-width: 600px
+            mix-width: 400px
+            margin: 0 auto
+            background-color: $second-color
+            height: 360px
+            background: url(../image/not-yet.png) no-repeat 
+            display: flex
+
+            h2
+                margin: auto
+                color: $base-color
+
+        #request-form-success
+            width: 100%
+            max-width: 600px
+            mix-width: 400px
+            margin: 0 auto
+            background-color: $second-color
+            height: 360px
+            background: url(../image/success.png) no-repeat 
+            display: flex
+
+            h2
+                margin: auto
+                color: $base-color
 
                 button
-                    margin-top: 2em
-                    padding: 6px 10px
-
-            .right
-                width: 50%
-                height: 100%
-                display: inline-block
-                background: url(../image/recording.png) no-repeat
-                
-        @media screen and (max-width: $small)
-            display: blcok
-
-            #field_set
-                border: none
-                padding: 0
-
-            .left
-                width: 100%
-                display: block
-                padding: 1em
-                .field
-                    margin-top: 0.8em
-                    
-                    label
-                        display: block
-                        margin-bottom: 0.2em
-                        
-                    input
-                        height: 24px
-                        width: 90%
-                        color: white
-                        border: 0
-                        margin: 0
-                        padding: 6px 4px 4px 7px
-                        min-width: 0
-                        box-sizing: content-box
-                        letter-spacing: inherit
-                button
-                    margin-top: 2em
-                    padding: 6px 10px
-
-            .right
-                width: 100%
-                display: none
-
-    #request-form-closed
-        background: url(../image/not-yet.png) no-repeat 
-        h2
-            margin: auto
-            color: $base-color
-    #request-form-success
-        background: url(../image/success.png) no-repeat 
-        h2
-            margin: auto
-            color: $base-color
+                    cursor: pointer
+                    padding: 6px 10px                
+        
+        .hidden
+            display: none !important
 
     
 #footer

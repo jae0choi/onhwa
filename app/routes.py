@@ -85,18 +85,24 @@ def search_youtube():
 
 @app.route('/load_playlist', methods=['GET'])
 def load_playlist():
-    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
     return jsonify(data=playlist)
 
 @app.route('/edit_playlist', methods=['GET', 'POST'])
 def edit_playlist():
     mode = request.form['mode']
     vid = request.form['video_id']
+
     if mode == 'add':
         video_title = request.form['video_title']
         #playlist.append({'video_id': vid, 'video_title': video_title})
-        video = Video(video_id=vid, title=video_title)
+        video_song = request.form['title']
+        video_artist = request.form['artist']
+        video_requester = request.form['requester']
+
+        video = Video(video_id=vid, title=video_title, song_title=video_song, requester=video_requester, artist=video_artist)
         db.session.add(video)
+
     elif mode == 'remove':
         #playlist = [video for video in playlist if video['video_id'] != vid]
         video = Video.query.filter(Video.video_id == vid).delete()
@@ -104,8 +110,9 @@ def edit_playlist():
         db.session.commit()
     except:
         db.session.rollback()
-
-    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    
+    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
+    
     app.logger.debug('Current playlist')
     app.logger.debug(playlist)
     return jsonify(data=playlist)
@@ -113,7 +120,7 @@ def edit_playlist():
 @app.route('/reorder_playlist', methods=['GET', 'POST'])
 def reorder_playlist():
     video_ids = request.form.getlist('video_ids[]')
-    playlist = [{'video_id': video.video_id, 'video_title': video.title} for video in Video.query.all()]
+    playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
     new_playlist = [list(filter(lambda v: v['video_id'] == video_id, playlist))[0] for video_id in video_ids]
     
     try:
@@ -141,25 +148,45 @@ def export_pl():
 @app.route('/request_song', methods=['GET', 'POST'])
 def request_song():
     form = RequestForm()
-    artist = form.artist.data
-    title = form.title.data
-    requester = form.requester.data
-    app.logger.debug('Request received %s - %s - %s', requester, artist, title)
-    request = Request(requester=requester, artist = artist, title = title)
-    try:    
-        db.session.add(request)
-        db.session.commit()
-    except:
-        db.session.rollback()
+    
+    if form.validate_on_submit():
+        artist = form.artist.data
+        title = form.title.data
+        requester = form.requester.data
+        app.logger.debug('Request received %s - %s - %s', requester, artist, title)
+        request = Request(requester=requester, artist = artist, title = title)
+        try:    
+            db.session.add(request)
+            db.session.commit()
+        except:
+            db.session.rollback()
 
-    sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
-    return redirect(url_for('main'))
+        sse.publish({"requester": requester, "artist": artist, "title": title}, type='new_request')
+    else:
+        app.logger.debug('validate_on_submit() returned false')
+        flash(form.errors)
+    return render_template('main.html',  form=form, submitted = True)
+    #return redirect(url_for('main', form=form))
+
 
 @app.route('/get_requests', methods=['GET'])
 def get_requests():
     requests = [req.get_dict() for req in Request.query.all()]
     app.logger.debug('get requests')
     app.logger.debug(requests)
+    return jsonify(data=requests)
+
+@app.route('/remove_request', methods=['GET', 'POST'])
+def remove_request():
+    requester = request.form['requester']
+    title = request.form['title']
+    artist = request.form['artist']
+    Request.query.filter(Request.artist == artist, Request.title==title, Request.requester==requester).delete()
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback() 
+    requests = [req.get_dict() for req in Request.query.all()]
     return jsonify(data=requests)
 
 @app.route('/check_open_for_request', methods=['GET'])

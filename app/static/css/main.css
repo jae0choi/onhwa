@@ -127,42 +127,46 @@ html, body {
   margin-top: 0.5em;
 }
 
-.main-container .request-container {
+.main-container #request-container {
   width: 100%;
   max-width: 600px;
   mix-width: 400px;
   margin: 0 auto;
   text-align: left;
   background-color: #DBE3CC;
+  height: 360px;
+  color: #3B3B39;
+}
+
+.main-container #request-container #request-form-open {
+  height: 360px;
 }
 
 @media screen and (min-width: 480px) {
-  .main-container .request-container {
+  .main-container #request-container #request-form-open {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    height: 360px;
   }
-  .main-container .request-container #field_set {
+  .main-container #request-container #request-form-open #field_set {
     border: none;
     padding: 0;
   }
-  .main-container .request-container .left {
+  .main-container #request-container #request-form-open .left {
     width: 50%;
     display: inline-block;
     padding: 1em;
   }
-  .main-container .request-container .left .field {
+  .main-container #request-container #request-form-open .left .field {
     margin-top: 0.8em;
   }
-  .main-container .request-container .left .field label {
+  .main-container #request-container #request-form-open .left .field label {
     display: block;
     margin-bottom: 0.2em;
   }
-  .main-container .request-container .left .field input {
+  .main-container #request-container #request-form-open .left .field input {
     height: 24px;
     width: 90%;
-    color: white;
     border: 0;
     margin: 0;
     padding: 6px 4px 4px 7px;
@@ -171,11 +175,11 @@ html, body {
             box-sizing: content-box;
     letter-spacing: inherit;
   }
-  .main-container .request-container .left button {
+  .main-container #request-container #request-form-open .left button {
     margin-top: 2em;
     padding: 6px 10px;
   }
-  .main-container .request-container .right {
+  .main-container #request-container #request-form-open .right {
     width: 50%;
     height: 100%;
     display: inline-block;
@@ -184,29 +188,28 @@ html, body {
 }
 
 @media screen and (max-width: 480px) {
-  .main-container .request-container {
+  .main-container #request-container #request-form-open {
     display: blcok;
   }
-  .main-container .request-container #field_set {
+  .main-container #request-container #request-form-open #field_set {
     border: none;
     padding: 0;
   }
-  .main-container .request-container .left {
+  .main-container #request-container #request-form-open .left {
     width: 100%;
     display: block;
     padding: 1em;
   }
-  .main-container .request-container .left .field {
+  .main-container #request-container #request-form-open .left .field {
     margin-top: 0.8em;
   }
-  .main-container .request-container .left .field label {
+  .main-container #request-container #request-form-open .left .field label {
     display: block;
     margin-bottom: 0.2em;
   }
-  .main-container .request-container .left .field input {
+  .main-container #request-container #request-form-open .left .field input {
     height: 24px;
     width: 90%;
-    color: white;
     border: 0;
     margin: 0;
     padding: 6px 4px 4px 7px;
@@ -215,32 +218,59 @@ html, body {
             box-sizing: content-box;
     letter-spacing: inherit;
   }
-  .main-container .request-container .left button {
+  .main-container #request-container #request-form-open .left button {
     margin-top: 2em;
     padding: 6px 10px;
   }
-  .main-container .request-container .right {
+  .main-container #request-container #request-form-open .right {
     width: 100%;
     display: none;
   }
 }
 
-.main-container #request-form-closed {
+.main-container #request-container #request-form-closed {
+  width: 100%;
+  max-width: 600px;
+  mix-width: 400px;
+  margin: 0 auto;
+  background-color: #DBE3CC;
+  height: 360px;
   background: url(../image/not-yet.png) no-repeat;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.main-container #request-form-closed h2 {
+.main-container #request-container #request-form-closed h2 {
   margin: auto;
   color: #F9F9F1;
 }
 
-.main-container #request-form-success {
+.main-container #request-container #request-form-success {
+  width: 100%;
+  max-width: 600px;
+  mix-width: 400px;
+  margin: 0 auto;
+  background-color: #DBE3CC;
+  height: 360px;
   background: url(../image/success.png) no-repeat;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.main-container #request-form-success h2 {
+.main-container #request-container #request-form-success h2 {
   margin: auto;
   color: #F9F9F1;
+}
+
+.main-container #request-container #request-form-success h2 button {
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+.main-container #request-container .hidden {
+  display: none !important;
 }
 
 #footer {

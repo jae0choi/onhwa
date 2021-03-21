@@ -33,30 +33,3 @@ if not app.debug:
 
 from app import routes, models # this line is located in the bottom to avoid import loop
 
-
-
-
-'''
-logging.basicConfig(level = logging.DEBUG)
-if __name__ != '__main__':
-    gunicorn_logger = logging.getLogger('gunicorn.error')
-    app.logger.handlers = gunicorn_logger.handlers
-    app.logger.setLevel(gunicorn_logger.level)
-else:
-    file_handler = logging.FileHandler('onhwa.log')
-    handler = logging.StreamHandler()
-    file_handler.setLevel(logging.DEBUG)
-    logging.handler.setLevel(logging.DEBUG)
-    logging.file_handler.setFormatter(Formatter(
-        '%(asctime)s %(levelname)s: %(message)s '
-        '[in %(pathname)s:%(lineno)d]'
-     ))
-    logging.handler.setFormatter(Formatter(
-        '%(asctime)s %(levelname)s: %(message)s '
-        '[in %(pathname)s:%(lineno)d]'
-     ))
-    app.logger.addHandler(handler)
-    app.logger.addHandler(file_handler)
-    app.logger.setLevel(logging.DEBUG)
-'''
-

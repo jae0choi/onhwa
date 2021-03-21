@@ -18,40 +18,55 @@
             <h1>온화카페</h1>
             <p class="tagline">사람 사는 이야기. 작업할 때 듣는 라디오처럼 무겁지도 가볍지도 않은 이야기를 하는 공간</p>
 
-            <div class="request-container" id="request-form-open">
-                <div class="left">
-                    <h2>신청곡</h2>
-                    <form id='request_form' action="/request_song" method="post" novalidate>
-                    <fieldset id="field_set" disabled>
-                        {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->                   
-                        <div class="field" id="requester">
-                            <label>신청자</label>
-                            {{ form.requester(size=24, placeholder="Your name") }}
-                        </div> 
-                        <div class="field" id="singer">
-                            <label>가수</label>
-                            {{ form.artist(size=24, placeholder="Artist") }}    
-                        </div>
-                        <div class="field" id="song-title">
-                            <label>노래이름</label>
-                            {{ form.title(size=24, placeholder="Title") }}    
-                        </div>
-                        <button type="submit"  id='request_submit'>
-                        틀어주세요
-                        </button>
-                    </fieldset>
-                    </form>
+            <div id="request-container">
+                {% if submitted %}
+                <div id="request-form-success">
+                    <h2>신청해주셔서 감사합니다 :) <br><a href="/"><button>한 곡 더 신청하기</button></a></h2>
+                    
+                </div>              
+                {% else %}
+
+                <div id="request-form-open" class="hidden">
+                    <div class="left">
+                        <h2>신청곡</h2>
+                        <form id='request_form' action="/request_song" method="post" novalidate>
+                        <fieldset id="field_set">
+                            {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->                   
+                            <div class="field" id="requester">
+                                <label>신청자</label>
+                                {{ form.requester(size=24, placeholder="Your name") }}
+                                {% for error in form.requester.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div> 
+                            <div class="field" id="singer">
+                                <label>가수</label>
+                                {{ form.artist(size=24, placeholder="Artist") }}
+                                {% for error in form.artist.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}    
+                            </div>
+                            <div class="field" id="song-title">
+                                <label>노래이름</label>
+                                {{ form.title(size=24, placeholder="Title") }}   
+                                {% for error in form.title.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %} 
+                            </div>
+                            <button type="submit"  id='request_submit'>
+                            틀어주세요
+                            </button>
+                        </fieldset>
+                        </form>
+                    </div>
+                    <div class="right"></div>  
+                </div>    
+                {% endif %}  
+
+                <div id="request-form-closed">
+                    <h2>신청곡은 마감 1시간 전부터 가능합니다 :)</h2>
                 </div>
-                <div class="right"></div>       
             </div>
-
-            <div class="request-container" id="request-form-closed">
-                <h2>신청곡은 마감 1시간 전부터 가능합니다 :)</h2>
-            </div>
-            <div class="request-container" id="request-form-success">
-                <h2>신청해주셔서 감사합니다 :)</h2>
-            </div>
-
 
             <div class="openhour">
                 <div class="divider"></div>
@@ -61,7 +76,7 @@
                 <div class="divider"></div>
             </div>
             <div class="staff">
-                <h2>Crew</h2>
+                <h2>Crew <a href="/login" style="text-decoration: none;">☕️</a></h2>
                 <ul class="list">
                     <li class="alf"><img src="./static/image/alf.png" alt=""><p>Alf</p></li>
                     <li class="chan"><img src="./static/image/chan.png" alt=""><p>Chan</p></li>
