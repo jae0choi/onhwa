@@ -363,7 +363,7 @@ nav ul button {
 .bottom-container #requests .pending-request p {
   display: inline-block;
   color: #677A5E;
-  font-size: 1.3em;
+  font-size: 1em;
   line-height: 0em;
 }
 
