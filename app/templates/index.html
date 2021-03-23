@@ -51,6 +51,7 @@
                 <button onclick="nextVideo();">
                     <img src="/static/image/glyphicons_178_step_forward.png">다음 곡
                 </button>
+                <button onclick="remove_playlist();">모두 지우기</button>
             </div>
             <ul class="playlist" id='playlist'>
                 <!-- Show current playlist here-->
@@ -84,7 +85,8 @@
                 </form>
             </div>
             <div class="requests-container">
-                <p>노래를 검색하거나 아래 신청곡 카드 눌러서 영상 찾은 후, 플레이리스트에 넣기</p>
+                <p>노래를 검색하거나 아래 신청곡 카드 눌러서 영상 찾은 후, 플레이리스트에 넣기 <button onclick="remove_all_requests();">모두 지우기</button></p>
+                
                 <ul id="requests">
                 </ul>
                 <script>
