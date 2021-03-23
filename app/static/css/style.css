@@ -267,7 +267,7 @@ nav ul button {
   display: block;
   padding-left: 20px;
   font-size: 16px;
-  margin-top: 12px;
+  margin-top: 8px;
 }
 
 #playlist .info-container .requester-info p {
@@ -276,14 +276,9 @@ nav ul button {
   margin-top: 0;
 }
 
-#playlist .info-container .requester-info .requester,
-#playlist .info-container .requester-info .artist,
-#playlist .info-container .requester-info .song-title {
-  color: #677A5E;
-}
-
 #playlist .info-container .original-info .title {
   color: #878783;
+  font-size: 12px;
 }
 
 .bottom-container {
