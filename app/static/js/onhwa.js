@@ -84,6 +84,19 @@ function export_playlist() {
     });
 }
 
+function remove_playlist(){
+    $.get('/remove_playlist', function() {
+        console.log('remove playlist');
+        load_playlist();
+    });
+}
+
+function remove_all_requests(){
+    $.get('/remove_all_requests', function(){
+        console.log('remove all requests');
+        load_requests();
+    });
+}
 function load_requests() {
     $.get('/get_requests', function(requests) {
         $('#requests').html('')

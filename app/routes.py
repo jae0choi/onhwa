@@ -189,6 +189,18 @@ def remove_request():
     requests = [req.get_dict() for req in Request.query.all()]
     return jsonify(data=requests)
 
+@app.route('/remove_all_requests', methods=['GET', 'POST'])
+def remove_all_requests():
+    db.session.query(Request).delete()
+    db.session.commit()
+    return jsonify(data='OK')
+
+@app.route('/remove_playlist', methods=['GET', 'POST'])
+def remove_playlist():
+    db.session.query(Video).delete()
+    db.session.commit()
+    return jsonify(data='OK')
+    
 @app.route('/check_open_for_request', methods=['GET'])
 def check_open_for_request():
     # initialize server setting
