@@ -10,6 +10,7 @@ app.logger.debug('Current environment: %s', app.env)
 
 
 def youtube_search(query):
+    app.logger.debug('youtube_search %s', query)
     videos = []
     youtube = build(os.getenv('YOUTUBE_API_SERVICE_NAME'), os.getenv('YOUTUBE_API_VERSION'), developerKey=os.getenv('DEVELOPER_KEY'), cache_discovery=False)
     try:
@@ -33,47 +34,55 @@ def youtube_search(query):
 
 
 def export_playlist(title, description, playlist):
+    app.logger.debug('export_playlst called')
+    app.logger.debug(title)
+    app.logger.debug(playlist)
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
     if app.env == 'development':
       os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
-    
-    scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
-    flow = InstalledAppFlow.from_client_secrets_file(
-                os.getenv('CLIENT_SECRET_FILE'), scopes)
-    credentials = flow.run_console()
-    youtube = build(
-        os.getenv('YOUTUBE_API_SERVICE_NAME'), os.getenv('YOUTUBE_API_VERSION'), credentials=credentials)
 
-    body = dict(
-        snippet=dict(
-            title=title,
-            description=description
-        ),
-        status=dict(
-            privacyStatus='private'
-        ) 
-    )
-    request = youtube.playlists().insert(part='snippet, status',
-                               body=body
-                               )
-    response = request.execute()
-    app.logger.debug(response)
-    playlist_id = response['id']
-    for video in playlist:
-        video_id = video['video_id']
-        request = youtube.playlistItems().insert(
-            part="snippet",
-            body={
-              "snippet": {
-                "playlistId": playlist_id,
-                "position": 0,
-                "resourceId": {
-                  "kind": "youtube#video",
-                  "videoId": video_id
-                }
-              }
-            }
+    try:
+        scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
+        flow = InstalledAppFlow.from_client_secrets_file(
+                    os.getenv('CLIENT_SECRET_FILE'), scopes)
+        credentials = flow.run_console()
+        youtube = build(
+            os.getenv('YOUTUBE_API_SERVICE_NAME'), os.getenv('YOUTUBE_API_VERSION'), credentials=credentials)
+
+        body = dict(
+            snippet=dict(
+                title=title,
+                description=description
+            ),
+            status=dict(
+                privacyStatus='private'
+            ) 
         )
+        request = youtube.playlists().insert(part='snippet, status',
+                                   body=body
+                                   )
         response = request.execute()
         app.logger.debug(response)
+        playlist_id = response['id']
+        for video in playlist:
+            video_id = video['video_id']
+            request = youtube.playlistItems().insert(
+                part="snippet",
+                body={
+                  "snippet": {
+                    "playlistId": playlist_id,
+                    "position": 0,
+                    "resourceId": {
+                      "kind": "youtube#video",
+                      "videoId": video_id
+                    }
+                  }
+                }
+            )
+            response = request.execute()
+            app.logger.debug(response)
+            
+    except:
+        traceback.print_exc()
+        app.logger.debug(traceback.print_exc())
