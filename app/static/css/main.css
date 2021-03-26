@@ -81,6 +81,11 @@ html, body {
   padding: 2em 0 0;
 }
 
+.main-container .openhour h3 {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
 .main-container .request {
   padding: 2em 0;
   height: auto;
@@ -126,7 +131,7 @@ html, body {
 .main-container .staff ul li img {
   width: 96px;
   height: 96px;
-  border-radius: 50%;
+  margin-bottom: 1em;
 }
 
 .main-container .staff ul li p {
