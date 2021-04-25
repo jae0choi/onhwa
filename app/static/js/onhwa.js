@@ -98,9 +98,12 @@ function remove_all_requests(){
 function copy_playlist(){
     $.get('/copy_playlist', function(playlist) {
         console.log('copy playlist');
-        var copyText = playlist;
-        copyText.select();
-        document.execCommand("copy");    
+        const el = document.createElement('textarea');
+        el.value = playlist;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
     });
 }
 
