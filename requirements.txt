@@ -12,4 +12,3 @@ python-dotenv
 Flask-SSE
 gevent
 gunicorn
-pyperclip
