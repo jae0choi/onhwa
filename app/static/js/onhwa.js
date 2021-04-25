@@ -100,7 +100,7 @@ function remove_all_requests(){
 function copy_playlist(){
     $.get('/copy_playlist', function() {
         console.log('copy playlist');
-        copy_playlist();        
+        //copy_playlist();        
     });
     
 }
