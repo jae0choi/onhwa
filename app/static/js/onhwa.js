@@ -97,6 +97,13 @@ function remove_all_requests(){
         load_requests();
     });
 }
+function copy_playlist(){
+    $.get('/copy_playlist', function() {
+        console.log('copy playlist');
+        copy_playlist();        
+    });
+    
+}
 function load_requests() {
     $.get('/get_requests', function(requests) {
         $('#requests').html('')

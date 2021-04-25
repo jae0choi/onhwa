@@ -18,6 +18,8 @@ from app.models import Video, Request, User, ServerSetting
 
 from distutils.util import strtobool
 from traceback import print_exc
+import pyperclip
+
 
 @app.route('/', methods=['GET'])
 def main():
@@ -87,6 +89,19 @@ def search_youtube():
 def load_playlist():
     playlist = [{'video_id': video.video_id, 'video_title': video.title, 'song_title': video.song_title, 'requester': video.requester, 'artist': video.artist} for video in Video.query.all()]
     return jsonify(data=playlist)
+
+@app.route('/copy_playlist', methods=['GET'])
+def copy_playlist():
+    string = ''
+    for video in Video.query.all():
+        if video.song_title:
+            string += video.artist + " - " + video.song_title + "\n"
+        else:
+            string += video.title + "\n"
+    
+    pyperclip.copy(string)
+    return 'OK'
+
 
 @app.route('/edit_playlist', methods=['GET', 'POST'])
 def edit_playlist():
