@@ -29,11 +29,9 @@ function edit_playlist(video_id, video_title, artist, title, requester, mode) {
 function update_playlist(playlist) {
     $('#playlist').html('')
     video_ids = [];
-    console.log(playlist);
+
     $.each(playlist.data, function(index, value) {
         video_ids.push(value['video_id']);
-
-        console.log(value['artist']);
 
         if(value['artist']){
             $('#playlist').append("<li class='added-song' id='" + value['video_id'] + "'><img class='icon play-white' src='./static/image/play-white.svg' onclick='play_video(\"" + value['video_id'] + "\")'/><img class='icon pause-white' onclick='pause()' src='./static/image/pause-white.svg'/><img class='thumbnail' src='https://img.youtube.com/vi/" + value['video_id'] + "/default.jpg'><div class='info-container'><div class='original-info'><p class='title'>[" + value['video_title'] + "]</p></div><div class='requester-info'><p class='requester'>" + value['requester'] + " 👉 </p><p class='artist'>" + value['artist'] + "</p>의 <p class='song-title'>" + value['song_title'] + "</p></div></div><img class='icon trash' src='static/image/trash.svg' onclick='remove_song(\"" + value['video_id'] + "\")'/></li>");
@@ -98,11 +96,14 @@ function remove_all_requests(){
     });
 }
 function copy_playlist(){
-    $.get('/copy_playlist', function() {
+    $.get('/copy_playlist', function(playlist) {
         console.log('copy playlist');
+        var copyText = playlist;
+        copyText.select();
+        document.execCommand("copy");    
     });
-
 }
+
 function load_requests() {
     $.get('/get_requests', function(requests) {
         $('#requests').html('')
@@ -159,15 +160,12 @@ function search_youtube(query, title, requester) {
     $('#search-result-container').css('display','block');
     
     var requester = (requester)? requester : '';
-    console.log(requester);
     
     var dest_elem = $('#search_result');
     $(dest_elem).text('loading...');
     $.post('/search_youtube', {
         query: query
     }).done(function(response) {
-        console.log('search----');
-        console.log(artist, title, requester);
 
         $(dest_elem).html('');
         $.each(response.data, function(index, value) {

@@ -19,7 +19,7 @@ from app.models import Video, Request, User, ServerSetting
 from distutils.util import strtobool
 from traceback import print_exc
 import pyperclip
-
+    
 
 @app.route('/', methods=['GET'])
 def main():
