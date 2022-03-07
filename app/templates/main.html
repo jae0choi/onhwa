@@ -26,46 +26,43 @@
     <body>
         <div class="main-container">
             <img src="{{url_for('.static', filename='./image/logo.gif')}}" alt="">
-            <h1>온화카페</h1>
-            <p class="tagline">사람 사는 이야기. 작업할 때 듣는 라디오처럼 무겁지도 가볍지도 않은 이야기를 하는 공간</p>
 
             <div id="request-container">
                 {% if submitted %}
                 <div id="request-form-success">
-                    <h2>신청해주셔서 감사합니다 :) <br><a href="/"><button>한 곡 더 신청하기</button></a></h2>
+			<h2>We got your request :) <br><a href="/"><button>Request another song</button></a></h2>
                     
                 </div>              
                 {% else %}
-
                 <div id="request-form-open" class="hidden">
                     <div class="left">
-                        <h2>신청곡</h2>
+                        <h2>Request form</h2>
                         <form id='request_form' action="/request_song" method="post" novalidate>
                         <fieldset id="field_set">
                             {{ form.hidden_tag() }}  <!-- protection against CSRF attack -->                   
                             <div class="field" id="requester">
-                                <label>신청자</label>
+                                <label>Requester</label>
                                 {{ form.requester(size=24, placeholder="Your name") }}
                                 {% for error in form.requester.errors %}
                                 <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div> 
                             <div class="field" id="singer">
-                                <label>가수</label>
+                                <label>Singer</label>
                                 {{ form.artist(size=24, placeholder="Artist") }}
                                 {% for error in form.artist.errors %}
                                 <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}    
                             </div>
                             <div class="field" id="song-title">
-                                <label>노래이름</label>
+				    <label>Song</label>
                                 {{ form.title(size=24, placeholder="Title") }}   
                                 {% for error in form.title.errors %}
                                 <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %} 
                             </div>
                             <button type="submit"  id='request_submit'>
-                            틀어주세요
+                            Send
                             </button>
                         </fieldset>
                         </form>
@@ -75,19 +72,15 @@
                 {% endif %}  
 
                 <div id="request-form-closed">
-                    <h2>신청곡은 마감 1시간 전부터 가능합니다 :)</h2>
+                    <h2>We're not open, yet.</h2>
                 </div>
             </div>
 
             <div class="openhour">
                 <div class="divider"></div>
-                <h2>영업 시간</h2>
-                <h3>본점</h3>
-                (월~금) 미국 시간 🇺🇸 PST 1PM - 4PM<br>
-                (화~토) 한국 시간 🇰🇷 KST 5AM - 8AM<br>
-                <h3>한국점</h3>
-                (월~금) 한국 시간 🇰🇷 KST 1PM - 4PM<br>
-                (일~목) 미국 시간 🇺🇸 PST 9PM - 12AM
+		<h2>Cafe hour</h2>
+                (Mon~Thu) 🇺🇸 PST 1PM - 4PM<br>
+                (Tue~Fri) 🇰🇷 KST 5AM - 8AM<br>
                  
                 <div class="divider"></div>
             </div>
@@ -95,8 +88,6 @@
                 <h2>Crew <a href="/login" style="text-decoration: none;">☕️</a></h2>
                 <ul class="list">
                     <li><img src="./static/image/crew/1.png" alt=""></li>
-                    <li><img src="./static/image/crew/2.png" alt=""></li>
-                    <li><img src="./static/image/crew/3.png" alt=""></li>
                     <li><img src="./static/image/crew/4.png" alt=""></li>
                     <li><img src="./static/image/crew/5.png" alt=""></li>
                     <li><img src="./static/image/crew/6.png" alt=""></li>
@@ -104,20 +95,13 @@
                     <li><img src="./static/image/crew/8.png" alt=""></li>
                     <li><img src="./static/image/crew/9.png" alt=""></li>
                     <li><img src="./static/image/crew/10.png" alt=""></li>
-                    <li><img src="./static/image/crew/11.png" alt=""></li>
                     <li><img src="./static/image/crew/12.png" alt=""></li>
                     <li><img src="./static/image/crew/13.png" alt=""></li>
-                    <li><img src="./static/image/crew/14.png" alt=""></li>
-                    <li><img src="./static/image/crew/15.png" alt=""></li>
-                    <li><img src="./static/image/crew/16.png" alt=""></li>
-                    <li><img src="./static/image/crew/17.png" alt=""></li>
                     <li><img src="./static/image/crew/18.png" alt=""></li>
                     <li><img src="./static/image/crew/19.png" alt=""></li>
                     <li><img src="./static/image/crew/20.png" alt=""></li>
-                    <li><img src="./static/image/crew/21.png" alt=""></li>
                     <li><img src="./static/image/crew/22.png" alt=""></li>
                     <li><img src="./static/image/crew/23.png" alt=""></li>
-                    <li><img src="./static/image/crew/24.png" alt=""></li>
                 </ul>
             </div>
             <div class="divider"></div>
@@ -127,7 +111,7 @@
             </div>
             <div class="divider"></div>
         </div>
-        <footer id="footer">© 2021 온화카페, All Rights Reserved | developed by Team Javis (@chanitect, @mud0ri)</footer>
+        <footer id="footer">© 2021 Onhwa Cafe, All Rights Reserved | developed by Team Javis (@chanitect, @mud0ri)</footer>
     </body>
 
 </html>

@@ -27,13 +27,13 @@
 <body>
     <nav>
         <a href="/"><img src="{{url_for('.static', filename='./image/logo.gif')}}" alt=""></a>
-        <h1>온화카페 DJ 부스</h1>
+        <h1>Onhwa Cafe DJ booth</h1>
         <ul>
             <li>
                 {% if current_user.is_anonymous %}
-                <a href="{{ url_for('login') }}"><button>출근</button></a>
+		<a href="{{ url_for('login') }}"><button>Check In</button></a>
                 {% else %}
-                <a href="{{ url_for('logout') }}"><button>퇴근하자!</button></a>
+		<a href="{{ url_for('logout') }}"><button>Check Out</button></a>
                 {% endif %}
 
             </li>
@@ -43,16 +43,16 @@
         <div class="player-container" id="player">
         </div>
         <div class="playlist-container">
-            <h2>플레이리스트</h2>
+            <h2>Playlist</h2>
             <div id="controller">
                 <button onclick="prevVideo();">
-                    <img src="/static/image/glyphicons_170_step_backward.png">이전 곡
+                    <img src="/static/image/glyphicons_170_step_backward.png">Pre
                 </button>
                 <button onclick="nextVideo();">
-                    <img src="/static/image/glyphicons_178_step_forward.png">다음 곡
+			<img src="/static/image/glyphicons_178_step_forward.png">Next
                 </button>
-                <button onclick="remove_playlist();">모두 지우기</button>
-                <button onclick="copy_playlist();">클립보드로 복사</button>
+                <button onclick="remove_playlist();">Remove all</button>
+		<button onclick="copy_playlist();">Copy to clipboard</button>
             </div>
             <ul class="playlist" id='playlist'>
                 <!-- Show current playlist here-->
@@ -69,10 +69,10 @@
     </div>
     <div class="bottom-container">
         <div class="bottom-content">
-            <h2>신청곡</h2>
+            <h2>Requested songs</h2>
             <div class="toggle-button">
                 <input class="tgl tgl-skewed" id="request_open_checkbox" type="checkbox"/>
-                <label class="tgl-btn" data-tg-off="마감" data-tg-on="받는중" for="request_open_checkbox"></label>
+                <label class="tgl-btn" data-tg-off="Closed" data-tg-on="Open" for="request_open_checkbox"></label>
             </div>
             <div class="search">
                 <!-- Search Form -->
@@ -80,7 +80,7 @@
                     {{ form.hidden_tag() }}
                     <!-- protection against CSRF attack -->
                     <!-- {{ form.query.label }}<br> -->
-                    {{ form.query(size=24, placeholder="가수이름 노래제목") }}
+                    {{ form.query(size=24, placeholder="Searh singer or song") }}
                     <button type="submit" id='search_submit'>
                         <img class="icon search" src="./static/image/search.svg">
                     </button>
@@ -88,7 +88,7 @@
                 </form>
             </div>
             <div class="requests-container">
-                <p>노래를 검색하거나 아래 신청곡 카드 눌러서 영상 찾은 후, 플레이리스트에 넣기 <button onclick="remove_all_requests();">모두 지우기</button></p>
+		    <p>Add a song to the playlist<button onclick="remove_all_requests();">Remove all</button></p>
                 
                 <ul id="requests">
                 </ul>
@@ -115,7 +115,7 @@
     </div>
     <div id="search-result-container">
         <div class="result-content">
-            <h2>검색 결과</h2>
+            <h2>Searh results</h2>
             <div id='search_result'></div>
         </div>
     </div>
